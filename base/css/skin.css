@@ -1,0 +1,198 @@
+.pulse-play-button{
+    background:url(../res/play.png) no-repeat center center;
+    background-size: 30%;
+    height:30%;
+    width:30%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index:1000;
+    cursor: pointer;
+}
+
+.pulse-adplayer-skin{
+    overflow: hidden;
+}
+
+.pulse-loading-spinner{
+    background:url(../res/loading.png) no-repeat center center;
+    background-size: 30%;
+    height:30%;
+    width:30%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-animation:spin 2s linear infinite;
+    -moz-animation:spin 2s linear infinite;
+    animation:spin 2s linear infinite;
+}
+
+.pulse-loading-background{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*z-index:10000;*/
+    background-color: black;
+}
+
+.pulse-skip-button{
+    width: 26%;
+    font-size: large;
+    /*height: 20%;*/
+    position: absolute;
+    right:0;
+    padding: 2%;
+    color: white;
+    bottom:20%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: #2e2e2e;
+    vertical-align:middle;
+    text-align: center;
+    display: table-cell;
+    cursor: pointer;
+    border-left: 1px solid rgba(255, 255, 255, 0);
+    border-top: 1px solid rgba(255, 255, 255, 0);
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+
+    -webkit-transition: width 0.5s, border 0.2s;
+    transition: width 0.5s, border 0.2s;
+}
+
+.pulse-skip-button:hover {
+    border-left: 1px solid rgba(255, 255, 255, 1);
+    border-top: 1px solid rgba(255, 255, 255, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 1);
+}
+
+.pulse-skip-button-shrink {
+    width: 13%;
+}
+
+.pulse-skip-countdown{
+    width: 26%;
+    font-size: large;
+    position: absolute;
+    right:-100%;
+    padding: 2%;
+    color: white;
+    bottom:20%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: #2e2e2e;
+    vertical-align:middle;
+    text-align: center;
+    display: table-cell;
+    cursor: progress;
+    border-left: 1px solid rgba(255, 255, 255, 0);
+    border-top: 1px solid rgba(255, 255, 255, 0);
+    border-bottom: 1px solid rgba(255, 255, 255, 0);
+}
+
+.pulse-skip-countdown-slide {
+    right: 0;
+    -webkit-transition: right 0.5s;
+    transition: right 0.5s;
+}
+
+.pulse-ad-counter {
+    width: 100%;
+    font-size: medium;
+    position: absolute;
+    top:-100%;
+    left:0;
+    padding: 2%;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-color: #2e2e2e;
+    vertical-align:middle;
+    text-align: center;
+    display: table-cell;
+    cursor: progress;
+}
+
+.pulse-ad-counter-slide {
+    top: 0;
+    -webkit-transition: top 0.5s;
+    transition: top 0.5s;    
+}
+
+.pulse-skin-button-container {
+    z-index: 10000;
+    display: inline-block;
+    position: absolute;
+    width: 3%;
+    min-width: 32px;
+    bottom: 0.75%;
+    right: 0;
+}
+
+.pulse-skin-button-ar {
+    padding-top: 100%;
+}
+
+.pulse-skin-button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    cursor: pointer;
+    pointer-events: all;
+
+    background-position: top left;
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    transition: transform 0.1s;
+}
+
+.pulse-skin-button:active {
+    transform: scale(0.95);
+}
+
+.pulse-mute-button-muted, .pulse-mute-button-unmuted:hover {
+    background-image: url(../res/muted.png);
+}
+
+.pulse-mute-button-unmuted, .pulse-mute-button-muted:hover {
+    background-image: url(../res/unmuted.png);
+}
+
+.pulse-progress{
+    height: 0.75%;
+    width: 100%;
+    bottom: 0;
+    position: absolute;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.pulse-progress::-webkit-progress-bar {
+    background: dimgrey;
+}
+
+/* Now the value part */
+.pulse-progress::-webkit-progress-value {
+    background: #970000;
+}
+
+.pulse-visible{
+    z-index: 10000;
+    display: block! important;
+}
+
+.pulse-hidden{
+    z-index: 10000;
+    display: none;
+}

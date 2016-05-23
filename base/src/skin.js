@@ -92,8 +92,18 @@ var addFullScreenListeners = function() {
     }.bind(this));
 }.bind(this);
 
+
+function addSkinCSSToDOM(){
+    var style = document.createElement('style');
+    style.type = 'text/css';
+    style.innerHTML = '@CSS';
+    document.getElementsByTagName('head')[0].appendChild(style);
+}
+
+addSkinCSSToDOM();
 var skinDiv = adPlayer.getSkinElement();
 skinDiv.className = 'pulse-adplayer-skin';
+
 
 this._isFullscreen = false;
 this._adPlayer = adPlayer;

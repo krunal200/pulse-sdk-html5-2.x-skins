@@ -1,9 +1,14 @@
 {
   "name": "html5-adplayer-skin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
   "dependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-concat": "*"
+    "grunt": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-uglify": "*"
+  },
+  "devDependencies": {
+    "grunt-image-embed": "^0.3.3"
   }
 }

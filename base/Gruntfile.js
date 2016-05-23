@@ -17,19 +17,64 @@ module.exports = function(grunt) {
         'src/outro.js'
     ];
 
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-image-embed');
+
     grunt.initConfig({
         pkg: pkg,
-        concat: {
-            skin: {                    
+        clean: {
+            skin: {
+                src: ['dist/']
+            }
+        },
+        imageEmbed: {
+            dist: {
+                src: ['css/skin.css'],
+                dest:'dist/skin64.css',
                 options: {
+                    maxImageSize: 0
+                }
+            }
+        },
+        cssmin: {
+            target: {
+                files: {
+                    'dist/skin.min.css': ['dist/skin64.css']
+                }
+            }
+        },
+        concat: {
+            skin: {
+                options: {
+                    process: function(source, filepath) {
+                        if (filepath.indexOf('skin.js') > -1) {
+                            return source.replace('@CSS', grunt.file.read('dist/skin.min.css'));
+                        }
+
+                        return source;
+                    },
                     banner: sourceBanner
                 },
                 src: sourceFiles,
-                dest: 'js/skin.js'
+                dest: 'dist/skin.js'
+            }
+        },
+        uglify: {
+            skin: {
+                options: {
+                    mangle: {
+                        except: ['error', 'format', 'request', 'model', 'parse', 'core', 'window', 'document', 'console']
+                    }
+                },
+                files: {
+                    'dist/skin-<%= pkg.version %>.min.js': [ 'dist/skin.js' ]
+                }
             }
         }
     });
 
-    grunt.registerTask('default', ['concat']);
+    grunt.registerTask('default', [ 'clean', 'imageEmbed', 'cssmin', 'concat','uglify' ]);
 };

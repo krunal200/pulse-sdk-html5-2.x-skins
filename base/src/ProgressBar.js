@@ -11,10 +11,10 @@ var ProgressBar = function (div, adPlayer) {
 
 ProgressBar.prototype = {
     show: function() {
-        addClassToElement(this._progress, "pulse-visible");
+        this._progress.className = "pulse-progress pulse-visible";
     },
     hide: function() {
-        removeClassFromElement(this._progress, "pulse-visible");
+        this._progress.className = "pulse-progress";
     },
     setProgress: function(progress) {
         this._progress.value = progress;

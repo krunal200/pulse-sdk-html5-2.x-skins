@@ -21,7 +21,7 @@ var MuteButton = function(div, adPlayer, isMuted) {
     // reverted in click()
     this._muted = !isMuted;
     this.click();
-}
+};
 
 MuteButton.prototype = {
     click: function() {
@@ -43,4 +43,14 @@ MuteButton.prototype = {
         this._adPlayer.setVolume(1);
         this._muted = false;
     },
+
+    show: function() {
+        this._button.style.display = 'block';
+        this._button.addEventListener('click', this.click.bind(this));
+    },
+
+    hide: function() {
+        this._button.style.display = 'none';
+        this._button.removeEventListener('click', this.click.bind(this));
+    }
 };

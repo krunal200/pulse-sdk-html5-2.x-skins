@@ -11,6 +11,7 @@ module.exports = function(grunt) {
         'src/LoadingSpinner.js',
         'src/AdCounter.js',
         'src/MuteButton.js',
+        'src/CloseButton.js',
         'src/utility.js',
         'src/strings.js',
         'src/skin.js',
@@ -59,7 +60,7 @@ module.exports = function(grunt) {
                     banner: sourceBanner
                 },
                 src: sourceFiles,
-                dest: 'dist/skin.js'
+                dest: 'dist/skin-<%= pkg.version %>.js'
             }
         },
         uglify: {
@@ -70,7 +71,7 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'dist/skin-<%= pkg.version %>.min.js': [ 'dist/skin.js' ]
+                    'dist/skin-<%= pkg.version %>.min.js': [ 'dist/skin-<%= pkg.version %>.js' ]
                 }
             }
         }

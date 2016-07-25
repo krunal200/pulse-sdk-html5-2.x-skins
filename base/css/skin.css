@@ -136,6 +136,16 @@
     right: 0;
 }
 
+.pulse-skin-button-container-top {
+    z-index: 10000;
+    display: inline-block;
+    position: absolute;
+    width: 3%;
+    min-width: 32px;
+    top: 0.75%;
+    right: 0;
+}
+
 .pulse-skin-button-ar {
     padding-top: 100%;
 }
@@ -159,6 +169,11 @@
 
 .pulse-skin-button:active {
     transform: scale(0.95);
+}
+
+.pulse-close-button {
+    background-image: url(../res/close.png);
+
 }
 
 .pulse-mute-button-muted, .pulse-mute-button-unmuted:hover {

@@ -8,7 +8,8 @@ var SKIN_EVENTS = [
     OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON,
     OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED,
     OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS,
-    OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED
+    OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED,
+    OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN
 ];
 
 var onPlayerEvent = function(event, eventData) {
@@ -20,8 +21,11 @@ var onPlayerEvent = function(event, eventData) {
         case OO.Pulse.AdPlayer.Events.AD_BREAK_FINISHED:
             this._adCounter.hide();
             this._loadingSpinner.hide();
+            this._playButton.hide();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
+            this._muteButton.show();
+            this._pauseAdCloseButton.hide();
             this._adCounter.show();
             this._adCounter.update();
             this._loadingSpinner.hide();
@@ -57,6 +61,11 @@ var onPlayerEvent = function(event, eventData) {
             this._skipButton.show();
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
+            break;
+        case OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN:
+            this._muteButton.hide();
+            this._progressBar.hide();
+            this._pauseAdCloseButton.show();
             break;
         default:
             break;
@@ -114,6 +123,10 @@ this._progressBar = new ProgressBar(skinDiv, adPlayer);
 this._skipCountdown = new SkipCountdown(skinDiv, adPlayer);
 this._adCounter = new AdCounter(skinDiv, adPlayer);
 this._muteButton = new MuteButton(skinDiv, adPlayer, false);
+this._pauseAdCloseButton = new CloseButton(skinDiv, adPlayer, (function() {
+    this._pauseAdCloseButton.hide();
+    this._adPlayer.pauseAdClosed();
+}).bind(this));
 
 addPlayerEventListeners(adPlayer);
 addFullScreenListeners();

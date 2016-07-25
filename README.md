@@ -10,7 +10,7 @@ npm install
 grunt
 ```
 
-You'll find the final skin in `dist/skin-version-number.min.js`.
+You'll find the final skin in `js/skin-version-number.min.js`.
 
 #### Customization
 

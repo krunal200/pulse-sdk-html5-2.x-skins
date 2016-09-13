@@ -6,6 +6,7 @@ var ProgressBar = function (div, adPlayer) {
     this._progress.min = 0;
     this._progress.max = 1;
     this._progress.value = 0;
+    this.hide();
     div.appendChild(this._progress);
 }
 

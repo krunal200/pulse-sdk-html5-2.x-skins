@@ -9,10 +9,13 @@ var SKIN_EVENTS = [
     OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED,
     OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS,
     OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED,
-    OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN
+    OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN,
+    OO.Pulse.AdPlayer.Events.OVERLAY_AD_SHOWN,
+    OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN
 ];
 
 var onPlayerEvent = function(event, eventData) {
+
     switch (event) {
         case OO.Pulse.AdPlayer.Events.AD_BREAK_STARTED:
             this._adCounter.setAdBreak(eventData.adBreak);
@@ -22,6 +25,9 @@ var onPlayerEvent = function(event, eventData) {
             this._adCounter.hide();
             this._loadingSpinner.hide();
             this._playButton.hide();
+            this._pauseAdCloseButton.hide();
+            this._progressBar.hide();
+            this._muteButton.hide();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             this._muteButton.show();
@@ -67,6 +73,17 @@ var onPlayerEvent = function(event, eventData) {
             this._progressBar.hide();
             this._pauseAdCloseButton.show();
             break;
+        case OO.Pulse.AdPlayer.Events.OVERLAY_AD_SHOWN:
+            this._overlayCloseButton.show();
+            this._pauseAdCloseButton.hide();
+            this._muteButton.hide();
+            this._progressBar.hide();
+            break;
+        case OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN:
+            this._pauseAdCloseButton.hide();
+            this._muteButton.hide();
+            this._progressBar.hide();
+            break;
         default:
             break;
     }
@@ -109,8 +126,21 @@ function addSkinCSSToDOM(){
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
+var hideAll = function(){
+    this._adCounter.hide();
+    this._loadingSpinner.hide();
+    this._muteButton.hide();
+    this._playButton.hide();
+    this._overlayCloseButton.hide();
+    this._progressBar.hide();
+    this._skipButton.hide();
+    this._skipCountdown.hide();
+    this._pauseAdCloseButton.hide();
+}.bind(this);
+
 addSkinCSSToDOM();
 var skinDiv = adPlayer.getSkinElement();
+var overlayDiv = adPlayer.getOverlayDiv();
 skinDiv.className = 'pulse-adplayer-skin';
 
 
@@ -123,10 +153,16 @@ this._progressBar = new ProgressBar(skinDiv, adPlayer);
 this._skipCountdown = new SkipCountdown(skinDiv, adPlayer);
 this._adCounter = new AdCounter(skinDiv, adPlayer);
 this._muteButton = new MuteButton(skinDiv, adPlayer, false);
+this._overlayCloseButton = new CloseButton(overlayDiv, adPlayer, function () {
+    this._adPlayer.overlayAdClosed();
+    this._overlayCloseButton.hide();
+}.bind(this));
+
 this._pauseAdCloseButton = new CloseButton(skinDiv, adPlayer, (function() {
     this._pauseAdCloseButton.hide();
     this._adPlayer.pauseAdClosed();
 }).bind(this));
+hideAll();
 
 addPlayerEventListeners(adPlayer);
 addFullScreenListeners();

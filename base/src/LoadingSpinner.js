@@ -5,6 +5,7 @@ var LoadingSpinner = function(div, adPlayer) {
     this._backgroundDiv.className = "pulse-loading-background";
     this._loadingSpinner = document.createElement("div");
     this._loadingSpinner.className = "pulse-loading-spinner";
+    this.hide();
 
     this._backgroundDiv.appendChild(this._loadingSpinner);
     this._parent.appendChild(this._backgroundDiv);

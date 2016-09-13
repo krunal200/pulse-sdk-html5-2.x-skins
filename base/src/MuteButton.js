@@ -13,7 +13,8 @@ var MuteButton = function(div, adPlayer, isMuted) {
     // actual button
     this._button = document.createElement('div');
     this._button.addEventListener('click', this.click.bind(this));
-    
+    this.hide();
+
     this._container.appendChild(this._dummy);
     this._container.appendChild(this._button);
     div.appendChild(this._container);

@@ -191,6 +191,7 @@
     position: absolute;
     -webkit-appearance: none;
     appearance: none;
+    display: none;
 }
 
 .pulse-progress::-webkit-progress-bar {

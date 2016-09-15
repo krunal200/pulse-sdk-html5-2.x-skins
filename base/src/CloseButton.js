@@ -14,6 +14,7 @@ var CloseButton = function(div, adPlayer, onclick) {
     this._onclick = onclick;
     this._button = document.createElement('div');
     this._button.className = 'pulse-skin-button pulse-close-button';
+    this.hide();
   
     this._container.appendChild(this._dummy);
     this._container.appendChild(this._button);

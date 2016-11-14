@@ -67,6 +67,7 @@ var onPlayerEvent = function(event, eventData) {
             this._skipButton.show();
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
+            this._muteButton.onVolumeChanged(eventData.volume);
             break;
         case OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN:
             this._muteButton.hide();

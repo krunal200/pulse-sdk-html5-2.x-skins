@@ -30,10 +30,19 @@ var onPlayerEvent = function(event, eventData) {
             this._muteButton.hide();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
+            this._isPlayingVPAID = false;
+            var selectedMediaFile = eventData.ad.getMediaFiles()[0];
+            if(selectedMediaFile.apiFramework && selectedMediaFile.apiFramework === 'VPAID') {
+                this._isPlayingVPAID = true;
+            }
+            OO.Pulse.Utils.log('Skin: Selected media file is a ' + (this._isPlayingVPAID ? 'VPAID ad' : 'video ad'));
+
             this._muteButton.show();
             this._pauseAdCloseButton.hide();
+            
             this._adCounter.show();
             this._adCounter.update();
+
             this._loadingSpinner.hide();
             this._progressBar.show();
             this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
@@ -41,21 +50,27 @@ var onPlayerEvent = function(event, eventData) {
                 this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
             }.bind(this), 100);
 
-            this._skipCountdown.setAd(eventData.ad);
-            if(eventData.ad.isSkippable() && eventData.ad.getSkipOffset() === 0) {
-                this._skipButton.show();
+            if(!this._isPlayingVPAID) {            
+                this._skipCountdown.setAd(eventData.ad);
+                if(eventData.ad.isSkippable() && eventData.ad.getSkipOffset() === 0) {
+                    this._skipButton.show();
+                }
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_FINISHED:
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED:
             this._loadingSpinner.show();
-            this._skipButton.hide();
-            this._skipCountdown.hide();
+            if(!this._isPlayingVPAID) {            
+                this._skipButton.hide();
+                this._skipCountdown.hide();
+            }
             this._progressBar.hide();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS:
             this._progressBar.setProgress(eventData.position / eventData.duration);
-            this._skipCountdown.update(eventData.position);
+            if(!this._isPlayingVPAID) {
+                this._skipCountdown.update(eventData.position);
+            }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             this._playButton.show();
@@ -145,6 +160,7 @@ var overlayDiv = adPlayer.getOverlayDiv();
 skinDiv.className = 'pulse-adplayer-skin';
 
 
+this._isPlayingVPAID = false;
 this._isFullscreen = false;
 this._adPlayer = adPlayer;
 this._playButton = new PlayButton(skinDiv, adPlayer, this);

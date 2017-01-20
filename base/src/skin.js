@@ -9,6 +9,7 @@ var SKIN_EVENTS = [
     OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED,
     OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS,
     OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED,
+    OO.Pulse.AdPlayer.Events.AD_AUTOPLAY_BLOCKED,
     OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN,
     OO.Pulse.AdPlayer.Events.OVERLAY_AD_SHOWN,
     OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN
@@ -73,7 +74,9 @@ var onPlayerEvent = function(event, eventData) {
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
-            this._playButton.show();
+            if(!this._isPlayingVPAID) {            
+                this._playButton.show();
+            }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
             this._playButton.hide();
@@ -83,6 +86,11 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
             this._muteButton.onVolumeChanged(eventData.volume);
+            break;
+        case OO.Pulse.AdPlayer.Events.AD_AUTOPLAY_BLOCKED:
+            OO.Pulse.Utils.log('Skin: Hiding the loading screen as blocked autoplay was detected');
+            this._loadingSpinner.hide();
+            this._playButton.show();
             break;
         case OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN:
             this._muteButton.hide();

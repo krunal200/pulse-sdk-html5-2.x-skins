@@ -82,7 +82,9 @@ var onPlayerEvent = function(event, eventData) {
             this._playButton.hide();
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
-            this._skipButton.show();
+            if(!_isPlayingVPAID) {
+                this._skipButton.show();
+            }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
             this._muteButton.onVolumeChanged(eventData.volume);

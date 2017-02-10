@@ -82,7 +82,7 @@ var onPlayerEvent = function(event, eventData) {
             this._playButton.hide();
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
-            if(!_isPlayingVPAID) {
+            if(!this._isPlayingVPAID) {
                 this._skipButton.show();
             }
             break;

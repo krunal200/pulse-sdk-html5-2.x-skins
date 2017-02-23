@@ -19,6 +19,10 @@ SkipCountdown.prototype = {
         this.update(0);
     },
     update: function(position) {
+        if(!this._ad) {
+            return;
+        }
+        
         var remaining = Math.ceil(this._ad.getSkipOffset() - position);
         var template = SkipCountdown.getStringTemplate(remaining);
 

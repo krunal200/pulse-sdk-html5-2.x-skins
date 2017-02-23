@@ -65,6 +65,7 @@ var onPlayerEvent = function(event, eventData) {
                 this._skipButton.hide();
                 this._skipCountdown.hide();
             }
+            this._skipCountdown.setAd(null);
             this._progressBar.hide();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS:

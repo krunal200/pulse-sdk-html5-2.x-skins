@@ -9,16 +9,30 @@ var SkipCountdown = function(div, adPlayer) {
 
 SkipCountdown.prototype = {
     show: function() {
+        if(!this._ad) {
+            return;
+        }
+
         this._label.className = 'pulse-skip-countdown pulse-visible pulse-skip-countdown-slide';
     },
     hide: function() {
+        if(!this._ad) {
+            return;
+        }
+
         this._label.className = 'pulse-skip-countdown';
     },
+
     setAd: function(ad) {
         this._ad = ad;
         this.update(0);
     },
+
     update: function(position) {
+        if(!this._ad) {
+            return;
+        }
+
         var remaining = Math.ceil(this._ad.getSkipOffset() - position);
         var template = SkipCountdown.getStringTemplate(remaining);
 

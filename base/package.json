@@ -1,6 +1,6 @@
 {
   "name": "html5-adplayer-skin",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "private": true,
   "dependencies": {
     "grunt": "*",

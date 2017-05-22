@@ -16,21 +16,19 @@ var SKIN_EVENTS = [
 ];
 
 var onPlayerEvent = function(event, eventData) {
-
     switch (event) {
         case OO.Pulse.AdPlayer.Events.AD_BREAK_STARTED:
-            this._adCounter.setAdBreak(eventData.adBreak);
-            this._loadingSpinner.show();
+            this.setControls([ 'loadingSpinner ']);
+            this._controls.adCounter.setAdBreak(eventData.adBreak);
             break;
         case OO.Pulse.AdPlayer.Events.AD_BREAK_FINISHED:
-            this._adCounter.hide();
-            this._loadingSpinner.hide();
-            this._playButton.hide();
-            this._pauseAdCloseButton.hide();
-            this._progressBar.hide();
-            this._muteButton.hide();
+            this.setControls();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
+            var linearAdStartedControls = [
+                'muteButton', 'adCounter', 'progressBar'
+            ];
+
             this._isPlayingVPAID = false;
             var selectedMediaFile = eventData.ad.getMediaFiles()[0];
             if(selectedMediaFile.apiFramework && selectedMediaFile.apiFramework === 'VPAID') {
@@ -38,83 +36,88 @@ var onPlayerEvent = function(event, eventData) {
             }
             OO.Pulse.Utils.log('Skin: Selected media file is a ' + (this._isPlayingVPAID ? 'VPAID ad' : 'video ad'));
 
-            this._muteButton.show();
-            this._pauseAdCloseButton.hide();
-            
-            this._adCounter.show();
-            this._adCounter.update();
 
-            this._loadingSpinner.hide();
-            this._progressBar.show();
             this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
             setTimeout(function() {
                 this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
             }.bind(this), 100);
 
             if(!this._isPlayingVPAID) {            
-                this._skipCountdown.setAd(eventData.ad);
+                this._controls.skipCountdown.setAd(eventData.ad);
                 if(eventData.ad.isSkippable() && eventData.ad.getSkipOffset() === 0) {
-                    this._skipButton.show();
+                    linearAdStartedControls.push('skipButton');
                 }
             }
+
+            this.setControls(linearAdStartedControls);
+            this._controls.adCounter.update();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_FINISHED:
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED:
-            this._loadingSpinner.show();
-            if(!this._isPlayingVPAID) {            
-                this._skipButton.hide();
-                this._skipCountdown.hide();
-            }
-            this._skipCountdown.setAd(null);
-            this._progressBar.hide();
+            this.setControls([ 'loadingSpinner' ]);
+            this._controls.skipCountdown.setAd(null);
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS:
-            this._progressBar.setProgress(eventData.position / eventData.duration);
+            this._controls.progressBar.setProgress(eventData.position / eventData.duration);
             if(!this._isPlayingVPAID) {
-                this._skipCountdown.update(eventData.position);
+                this._controls.skipCountdown.update(eventData.position);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this._playButton.show();
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton' ]);
+            } else {
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this._playButton.hide();
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
-            if(!this._isPlayingVPAID) {
-                this._skipButton.show();
+            if(this._isPlayingVPAID) {
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar' ]);
+            } else {
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
-            this._muteButton.onVolumeChanged(eventData.volume);
+            this._controls.muteButton.onVolumeChanged(eventData.volume);
             break;
         case OO.Pulse.AdPlayer.Events.AD_AUTOPLAY_BLOCKED:
+            this.setControls([ 'playButton' ]);
             OO.Pulse.Utils.log('Skin: Hiding the loading screen as blocked autoplay was detected');
-            this._loadingSpinner.hide();
-            this._playButton.show();
             break;
         case OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN:
-            this._muteButton.hide();
-            this._progressBar.hide();
-            this._pauseAdCloseButton.show();
+            this.setControls([ 'pauseAdCloseButton' ]);
             break;
         case OO.Pulse.AdPlayer.Events.OVERLAY_AD_SHOWN:
-            this._overlayCloseButton.show();
-            this._pauseAdCloseButton.hide();
-            this._muteButton.hide();
-            this._progressBar.hide();
+            this.setControls([ 'overlayCloseButton' ]);
             break;
         case OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN:
-            this._pauseAdCloseButton.hide();
-            this._muteButton.hide();
-            this._progressBar.hide();
+            this.setControls();
             break;
         default:
             break;
     }
 
+}.bind(this);
+
+this.setControls = function(enabledControls) {
+    // Hide everything
+    for(var control in this._controls) {
+        this._controls[control].hide();
+    }
+
+    // Show selected controls
+    if(enabledControls) {    
+        for(var i = 0; i < enabledControls.length; ++i) {
+            var control = enabledControls[i];
+
+            if(this._controls[control]) {
+                this._controls[control].show();
+            }
+        }
+    }
 }.bind(this);
 
 var addPlayerEventListeners = function(adPlayer) {
@@ -153,44 +156,33 @@ function addSkinCSSToDOM(){
     document.getElementsByTagName('head')[0].appendChild(style);
 }
 
-var hideAll = function(){
-    this._adCounter.hide();
-    this._loadingSpinner.hide();
-    this._muteButton.hide();
-    this._playButton.hide();
-    this._overlayCloseButton.hide();
-    this._progressBar.hide();
-    this._skipButton.hide();
-    this._skipCountdown.hide();
-    this._pauseAdCloseButton.hide();
-}.bind(this);
-
 addSkinCSSToDOM();
 var skinDiv = adPlayer.getSkinElement();
 var overlayDiv = adPlayer.getOverlayDiv();
 skinDiv.className = 'pulse-adplayer-skin';
 
-
 this._isPlayingVPAID = false;
 this._isFullscreen = false;
 this._adPlayer = adPlayer;
-this._playButton = new PlayButton(skinDiv, adPlayer, this);
-this._loadingSpinner = new LoadingSpinner(skinDiv, adPlayer);
-this._skipButton = new SkipButton(skinDiv, adPlayer);
-this._progressBar = new ProgressBar(skinDiv, adPlayer);
-this._skipCountdown = new SkipCountdown(skinDiv, adPlayer);
-this._adCounter = new AdCounter(skinDiv, adPlayer);
-this._muteButton = new MuteButton(skinDiv, adPlayer, false);
-this._overlayCloseButton = new CloseButton(overlayDiv, adPlayer, function () {
-    this._adPlayer.overlayAdClosed();
-    this._overlayCloseButton.hide();
-}.bind(this));
 
-this._pauseAdCloseButton = new CloseButton(skinDiv, adPlayer, (function() {
-    this._pauseAdCloseButton.hide();
-    this._adPlayer.pauseAdClosed();
-}).bind(this));
-hideAll();
+this._controls = {
+    playButton:                             new PlayButton(skinDiv, adPlayer, this),
+    loadingSpinner:                         new LoadingSpinner(skinDiv, adPlayer),
+    skipButton:                             new SkipButton(skinDiv, adPlayer),
+    progressBar:                            new ProgressBar(skinDiv, adPlayer),
+    skipCountdown:                          new SkipCountdown(skinDiv, adPlayer),
+    adCounter:                              new AdCounter(skinDiv, adPlayer),
+    muteButton:                             new MuteButton(skinDiv, adPlayer, false),
+    overlayCloseButton:                     new CloseButton(overlayDiv, adPlayer, (function() {
+                                                                                        this._adPlayer.overlayAdClosed();
+                                                                                        this._controls.overlayCloseButton.hide();
+                                                                                  }).bind(this)),
+
+    pauseAdCloseButton:                     new CloseButton(skinDiv, adPlayer, (function() {
+                                                                                    this._controls.pauseAdCloseButton.hide();
+                                                                                    this._adPlayer.pauseAdClosed();
+                                                                                }).bind(this))
+};
 
 addPlayerEventListeners(adPlayer);
 addFullScreenListeners();

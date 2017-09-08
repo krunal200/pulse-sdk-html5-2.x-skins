@@ -67,7 +67,7 @@ module.exports = function(grunt) {
             skin: {
                 options: {
                     mangle: {
-                        except: ['error', 'format', 'request', 'model', 'parse', 'core', 'window', 'document', 'console']
+                        reserved: ['error', 'format', 'request', 'model', 'parse', 'core', 'window', 'document', 'console']
                     }
                 },
                 files: {

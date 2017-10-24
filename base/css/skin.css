@@ -176,11 +176,11 @@
 
 }
 
-.pulse-mute-button-muted, .pulse-mute-button-unmuted:hover {
+.pulse-mute-button-muted, .allowHover .pulse-mute-button-unmuted:hover {
     background-image: url(../res/muted.png);
 }
 
-.pulse-mute-button-unmuted, .pulse-mute-button-muted:hover {
+.pulse-mute-button-unmuted, .allowHover .pulse-mute-button-muted:hover {
     background-image: url(../res/unmuted.png);
 }
 

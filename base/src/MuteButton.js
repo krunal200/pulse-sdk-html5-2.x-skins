@@ -1,4 +1,12 @@
 var MuteButton = function(div, adPlayer, isMuted) {
+    this._mutedClassNames = 'pulse-skin-button pulse-mute-button-muted';
+    this._unmutedClassNames = 'pulse-skin-button pulse-mute-button-unmuted';
+
+    if(!bowser && (!bowser.mobile || !bowser.tablet)) {
+        this._mutedClassNames += ' allowHover';
+        this._unmutedClassNames += ' allowHover';
+    }
+
     this._parent = div;
     this._adPlayer = adPlayer;
 
@@ -22,7 +30,7 @@ var MuteButton = function(div, adPlayer, isMuted) {
     // reverted in click()
     this._muted = isMuted;
     if(this._adPlayer.getVolume){
-        this._button.className = this._adPlayer.getVolume() ? 'pulse-skin-button pulse-mute-button-unmuted' : 'pulse-skin-button pulse-mute-button-muted';
+        this._button.className = this._adPlayer.getVolume() ? this._unmutedClassNames : this._mutedClassNames;
     } else {
         this.click();
     }
@@ -43,11 +51,11 @@ MuteButton.prototype = {
     },
 
     mute: function() {
-        if(this._adPlayer.mute){
+        if(this._adPlayer.mute) {
             this._adPlayer.mute();
-            this._button.className = this._adPlayer.getVolume() ? 'pulse-skin-button pulse-mute-button-unmuted' : 'pulse-skin-button pulse-mute-button-muted';
+            this._button.className = this._adPlayer.getVolume() ? this._unmutedClassNames : this._mutedClassNames;
         } else {
-            this._button.className = 'pulse-skin-button pulse-mute-button-muted';
+            this._button.className = this._mutedClassNames;
             this._adPlayer.setVolume(0);
         }
         this._muted = true;
@@ -55,11 +63,11 @@ MuteButton.prototype = {
 
     unmute: function() {
 
-        if(this._adPlayer.unmute){
+        if(this._adPlayer.unmute) {
             this._adPlayer.unmute();
-            this._button.className = this._adPlayer.getVolume() ? 'pulse-skin-button pulse-mute-button-unmuted' : 'pulse-skin-button pulse-mute-button-muted';
+            this._button.className = this._adPlayer.getVolume() ? this._unmutedClassNames : this._mutedClassNames;
         } else {
-            this._button.className = 'pulse-skin-button pulse-mute-button-unmuted';
+            this._button.className = this._unmutedClassNames;
             this._adPlayer.setVolume(1);
         }
         this._muted = false;
@@ -68,7 +76,7 @@ MuteButton.prototype = {
     show: function() {
         this._button.style.display = 'block';
         if(this._adPlayer.getVolume()){
-            this._button.className = this._adPlayer.getVolume() ? 'pulse-skin-button pulse-mute-button-unmuted' : 'pulse-skin-button pulse-mute-button-muted';
+            this._button.className = this._adPlayer.getVolume() ? this._unmutedClassNames : this._mutedClassNames;
         }
     },
 
@@ -77,6 +85,6 @@ MuteButton.prototype = {
     },
 
     onVolumeChanged: function(volume){
-        this._button.className = volume ? 'pulse-skin-button pulse-mute-button-unmuted' : 'pulse-skin-button pulse-mute-button-muted';
+        this._button.className = volume ? this._unmutedClassNames : this._mutedClassNames;
     }
 };

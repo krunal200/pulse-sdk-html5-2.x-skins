@@ -1,8 +1,7 @@
 .pulse-play-button{
     background:url(../res/play.png) no-repeat center center;
-    background-size: 30%;
-    height:30%;
-    width:30%;
+    height:100%;
+    width:100%;
     position: absolute;
     margin: auto;
     top: 0;

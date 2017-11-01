@@ -1,8 +1,7 @@
 .pulse-play-button{
     background:url(../res/play.png) no-repeat center center;
-    background-size: 30%;
-    height:30%;
-    width:30%;
+    height:100%;
+    width:100%;
     position: absolute;
     margin: auto;
     top: 0;
@@ -176,11 +175,11 @@
 
 }
 
-.pulse-mute-button-muted, .pulse-mute-button-unmuted:hover {
+.pulse-mute-button-muted, .allowHover .pulse-mute-button-unmuted:hover {
     background-image: url(../res/muted.png);
 }
 
-.pulse-mute-button-unmuted, .pulse-mute-button-muted:hover {
+.pulse-mute-button-unmuted, .allowHover .pulse-mute-button-muted:hover {
     background-image: url(../res/unmuted.png);
 }
 

@@ -1,15 +1,17 @@
 {
   "name": "html5-adplayer-skin",
   "version": "1.6.2",
+  "main": "dist/skin.min.js",
   "private": true,
   "dependencies": {
+  },
+  "devDependencies": {
     "grunt": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-concat": "*",
-    "grunt-contrib-uglify": "*"
-  },
-  "devDependencies": {
+    "grunt-contrib-uglify": "*",
     "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-watch": "^1.0.0",
     "grunt-image-embed": "^0.3.3"
   }
 }

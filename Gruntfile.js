@@ -23,6 +23,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-image-embed');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     grunt.initConfig({
         pkg: pkg,
@@ -60,7 +61,7 @@ module.exports = function(grunt) {
                     banner: sourceBanner
                 },
                 src: sourceFiles,
-                dest: 'dist/skin-<%= pkg.version %>.js'
+                dest: 'dist/skin.js'
             }
         },
         uglify: {
@@ -71,10 +72,27 @@ module.exports = function(grunt) {
                     }
                 },
                 files: {
-                    'dist/skin-<%= pkg.version %>.min.js': [ 'dist/skin-<%= pkg.version %>.js' ]
+                    'dist/skin.min.js': [ 'dist/skin.js' ]
                 }
             }
+        },
+        watch: {
+            scripts: {
+                files: ['src/**/*.js'],
+                tasks: ['concat', 'uglify'],
+                options: {
+                    spawn: false
+                },
+            },
+            style: {
+                files: ['css/**/*.css'],
+                tasks: ['imageEmbed', 'cssmin', 'concat', 'uglify'],
+                options: {
+                    spawn: false
+                },
+            }
         }
+
     });
 
     grunt.registerTask('default', [ 'clean', 'imageEmbed', 'cssmin', 'concat','uglify' ]);

@@ -12,7 +12,8 @@ var SKIN_EVENTS = [
     OO.Pulse.AdPlayer.Events.AD_AUTOPLAY_BLOCKED,
     OO.Pulse.AdPlayer.Events.PAUSE_AD_SHOWN,
     OO.Pulse.AdPlayer.Events.OVERLAY_AD_SHOWN,
-    OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN
+    OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN,
+    OO.Pulse.AdPlayer.Events.AD_CLICKED
 ];
 
 var onPlayerEvent = function(event, eventData) {
@@ -96,6 +97,9 @@ var onPlayerEvent = function(event, eventData) {
         case OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN:
             this.setControls();
             break;
+        case OO.Pulse.AdPlayer.Events.AD_CLICKED: 
+            this._adPlayer.pause();
+            break;
         default:
             break;
     }
@@ -113,7 +117,7 @@ this.setControls = function(enabledControls) {
         for(var i = 0; i < enabledControls.length; ++i) {
             var control = enabledControls[i];
 
-            if(this._controls[control]) {
+            if(this._controls[control] && components[control]) {
                 this._controls[control].show();
             }
         }

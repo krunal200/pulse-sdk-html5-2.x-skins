@@ -10,3 +10,7 @@ function removeClassFromElement(element, className) {
 function isNumber(n) {
 	return !isNaN(parseFloat(n)) && isFinite(n);	
 }
+
+function getConfigValue(config, key, defaultValue) {
+	return config.hasOwnProperty(key) ? config[key] : defaultValue;
+}

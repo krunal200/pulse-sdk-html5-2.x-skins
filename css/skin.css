@@ -182,7 +182,7 @@
 .pulse-mute-button-unmuted, .allowHover .pulse-mute-button-muted:hover {
     background-image: url(../res/unmuted.png);
 }
-
+/*
 .pulse-progress{
     height: 0.75%;
     width: 100%;
@@ -197,10 +197,31 @@
     background: dimgrey;
 }
 
-/* Now the value part */
+ Now the value part 
 .pulse-progress::-webkit-progress-value {
     background: #970000;
 }
+*/
+
+.pulse-progress-bar {
+    display: none;
+    height: 4px;
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background: #777;
+}
+
+.pulse-progress-bar > span {
+    display: block;
+    left: 0;
+    top: 0;
+    height: 4px;
+    background-color: #8bbb4b;
+    position: absolute;
+    overflow: hidden;
+}
+
 
 .pulse-visible{
     z-index: 10000;

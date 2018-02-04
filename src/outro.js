@@ -14,6 +14,7 @@ if(OO && OO.Pulse) {
 				muteButton: true,
 				overlayCloseButton: true,
 				pauseAdCloseButton: true,
+				hoverOverlay: true,
 			};
 			if(typeof config !== 'object') {
 				config = {};

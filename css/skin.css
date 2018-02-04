@@ -207,9 +207,11 @@
     display: none;
     height: 4px;
     position: absolute;
-    width: 100%;
     bottom: 0;
-    background: #777;
+    left: 0;
+    right: 0;
+    background-color: rgba(255,255,255,0.2);
+    transition: bottom 500ms ease-out, left 500ms ease-out, right 500ms ease-out;
 }
 
 .pulse-progress-bar > span {
@@ -217,9 +219,25 @@
     left: 0;
     top: 0;
     height: 4px;
-    background-color: #8bbb4b;
+    background-image: linear-gradient(to right, #dada0c, #edcb07);
     position: absolute;
     overflow: hidden;
+}
+
+.video-js:hover .pulse-progress-bar {
+    bottom: 54px;
+    left: 10px;
+    right: 10px;
+}
+
+.pulse-hover-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.video-js:hover .pulse-hover-overlay {
+    background-color: rgba(0,0,0,0.1);
 }
 
 

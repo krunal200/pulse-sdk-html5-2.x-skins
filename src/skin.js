@@ -66,19 +66,19 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar' ]);
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
@@ -97,7 +97,7 @@ var onPlayerEvent = function(event, eventData) {
         case OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN:
             this.setControls();
             break;
-        case OO.Pulse.AdPlayer.Events.AD_CLICKED: 
+        case OO.Pulse.AdPlayer.Events.AD_CLICKED:
             this._adPlayer.pause();
             break;
         default:
@@ -185,7 +185,8 @@ this._controls = {
     pauseAdCloseButton:                     new CloseButton(skinDiv, adPlayer, (function() {
                                                                                     this._controls.pauseAdCloseButton.hide();
                                                                                     this._adPlayer.pauseAdClosed();
-                                                                                }).bind(this))
+                                                                                }).bind(this)),
+    hoverOverlay:                           new HoverOverlay(skinDiv, adPlayer),
 };
 
 addPlayerEventListeners(adPlayer);

@@ -72,7 +72,7 @@ var onPlayerEvent = function(event, eventData) {
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay' ]);
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
@@ -163,6 +163,14 @@ function addSkinCSSToDOM(){
 addSkinCSSToDOM();
 var skinDiv = adPlayer.getSkinElement();
 var overlayDiv = adPlayer.getOverlayDiv();
+var container = adPlayer.getContainer();
+[].slice.call(container.children)
+    .some(function(child) {
+        if(child.id.indexOf('pulseAdPlayerVideo') === 0) {
+            child.style.cursor = 'pointer';
+            return true;
+        }
+    })
 skinDiv.className = 'pulse-adplayer-skin';
 
 this._isPlayingVPAID = false;
@@ -187,6 +195,7 @@ this._controls = {
                                                                                     this._adPlayer.pauseAdClosed();
                                                                                 }).bind(this)),
     hoverOverlay:                           new HoverOverlay(skinDiv, adPlayer),
+    pauseButton:                            new PauseButton(skinDiv, adPlayer), 
 };
 
 addPlayerEventListeners(adPlayer);

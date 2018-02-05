@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     const sourceFiles = [
         'src/intro.js',
         'src/PlayButton.js',
+        'src/PauseButton.js',
         'src/SkipButton.js',
         'src/SkipCountdown.js',
         'src/ProgressBar.js',

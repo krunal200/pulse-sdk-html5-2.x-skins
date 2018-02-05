@@ -1,7 +1,7 @@
 .pulse-play-button{
-    background:url(../res/play.png) no-repeat center center;
-    height:100%;
-    width:100%;
+    background:url(../res/ic_play_arrow_white_48px.svg) no-repeat center center;
+    width: 66.3px; /* after scaling it must be 120px */
+    height: 63.49px; /* after scaling it must be 120px */
     position: absolute;
     margin: auto;
     top: 0;
@@ -10,6 +10,38 @@
     bottom: 0;
     z-index:1000;
     cursor: pointer;
+    transform: scale(1.81,1.89);
+    opacity: 0.65;
+    transition: opacity 300ms;
+}
+
+.pulse-play-button:hover {
+    opacity: 1;
+}
+
+.pulse-pause-button {
+    background:url(../res/ic_pause_white_48px.svg) no-repeat center center;
+    width: 82.76px; /* after scaling it must be 120px */
+    height: 61.22px; /* after scaling it must be 120px */
+    position: absolute;
+    margin: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index:1000;
+    cursor: pointer;
+    transform: scale(1.45, 1.96);
+    opacity: 0;
+    transition: opacity 300ms;
+}
+
+.video-js:hover .pulse-pause-button {
+    opacity: 0.65;
+}
+
+.video-js:hover .pulse-pause-button:hover {
+    opacity: 1;
 }
 
 .pulse-adplayer-skin{
@@ -238,7 +270,11 @@
 
 .video-js:hover .pulse-hover-overlay {
     background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+    z-index: 999;
 }
+
+
 
 
 .pulse-visible{

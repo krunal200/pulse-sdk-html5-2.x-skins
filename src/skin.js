@@ -27,7 +27,7 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             var linearAdStartedControls = [
-                'muteButton', 'adCounter', 'progressBar'
+                'muteButton', 'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton'
             ];
 
             this._isPlayingVPAID = false;
@@ -59,26 +59,27 @@ var onPlayerEvent = function(event, eventData) {
             this._controls.skipCountdown.setAd(null);
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS:
-            this._controls.progressBar.setProgress(eventData.position / eventData.duration);
+            this._controls.progressBar.setProgress(eventData.duration, eventData.position);
+            this._controls.videoStartCountdown.setRemainingTime(eventData.duration, eventData.position);
             if(!this._isPlayingVPAID) {
                 this._controls.skipCountdown.update(eventData.position);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton' ]);
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
@@ -196,6 +197,7 @@ this._controls = {
                                                                                 }).bind(this)),
     hoverOverlay:                           new HoverOverlay(skinDiv, adPlayer),
     pauseButton:                            new PauseButton(skinDiv, adPlayer), 
+    videoStartCountdown:                    new VideoStartCountdown(skinDiv, adPlayer),
 };
 
 addPlayerEventListeners(adPlayer);

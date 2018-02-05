@@ -16,6 +16,7 @@ if(OO && OO.Pulse) {
 				pauseAdCloseButton: true,
 				hoverOverlay: true,
 				pauseButton: true,
+				videoStartCountdown: true,
 			};
 			if(typeof config !== 'object') {
 				config = {};

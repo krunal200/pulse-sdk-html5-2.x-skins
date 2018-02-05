@@ -17,6 +17,7 @@ if(OO && OO.Pulse) {
 				hoverOverlay: true,
 				pauseButton: true,
 				videoStartCountdown: true,
+				clickThroughLink: true,
 			};
 			if(typeof config !== 'object') {
 				config = {};

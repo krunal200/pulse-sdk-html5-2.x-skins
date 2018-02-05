@@ -12,7 +12,7 @@
     cursor: pointer;
     transform: scale(1.81,1.89);
     opacity: 0.65;
-    transition: opacity 300ms;
+    transition: opacity 300ms ease-out;
 }
 
 .pulse-play-button:hover {
@@ -33,7 +33,7 @@
     cursor: pointer;
     transform: scale(1.45, 1.96);
     opacity: 0;
-    transition: opacity 300ms;
+    transition: opacity 300ms ease-out;
 }
 
 .video-js:hover .pulse-pause-button {
@@ -96,8 +96,8 @@
     border-top: 1px solid rgba(255, 255, 255, 0);
     border-bottom: 1px solid rgba(255, 255, 255, 0);
 
-    -webkit-transition: width 0.5s, border 0.2s;
-    transition: width 0.5s, border 0.2s;
+    -webkit-transition: width 0.5s, border 0.2s ease-out;
+    transition: width 0.5s, border 0.2s ease-out;
 }
 
 .pulse-skip-button:hover {
@@ -131,8 +131,8 @@
 
 .pulse-skip-countdown-slide {
     right: 0;
-    -webkit-transition: right 0.5s;
-    transition: right 0.5s;
+    -webkit-transition: right 0.5s ease-out;
+    transition: right 0.5s ease-out;
 }
 
 .pulse-ad-counter {
@@ -153,8 +153,8 @@
 
 .pulse-ad-counter-slide {
     top: 0;
-    -webkit-transition: top 0.5s;
-    transition: top 0.5s;    
+    -webkit-transition: top 0.5s ease-out;
+    transition: top 0.5s ease-out;    
 }
 
 .pulse-skin-button-container {
@@ -195,7 +195,7 @@
     background-size: contain;
     background-repeat: no-repeat;
 
-    transition: transform 0.1s;
+    transition: transform 0.1s ease-out;
 }
 
 .pulse-skin-button:active {
@@ -266,6 +266,7 @@
     position: absolute;
     width: 100%;
     height: 100%;
+    transition: background-color 300ms ease-out;
 }
 
 .video-js:hover .pulse-hover-overlay {
@@ -289,7 +290,39 @@
     font-family: Roboto, 'sans-serif';
 }
 
+.pulse-click-through-link {
+    position: absolute;
+    left: 0;
+    bottom: 19px;
+    transition: bottom 500ms ease-out; 
+    font-size: 16px;
+    line-height: 19px;
+    font-family: Roboto, 'sans-serif';
+    color: #fff;
+    margin-left: 10px;
+}
 
+.pulse-click-through-link__icon {
+    background:url(../res/ic_open_in_new_white_48px.svg) no-repeat center center;
+    width: 38px;
+    height: 38px;
+    display: inline-block;
+    transform: scale(0.42, 0.43);
+    vertical-align: middle;
+    margin-left: -11px;
+    margin-bottom: -11px;
+    margin-right: -1px;
+}
+
+.pulse-click-through-link__link {
+    vertical-align: middle;
+    margin-bottom: -11px;
+    display: inline-block;
+}
+
+.video-js:hover .pulse-click-through-link {
+    bottom: 73px;
+}
 
 
 .pulse-visible{

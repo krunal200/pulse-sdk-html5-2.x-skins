@@ -6,4 +6,6 @@ var SKIN_STRINGS = {
     SKIP_COUNTDOWN_PLURAL: getConfigValue(config, 'SKIP_COUNTDOWN_PLURAL', 'You can skip this ad in [countdown] seconds'),
 
     AD_COUNTER: getConfigValue(config, 'AD_COUNTER', 'Ad [position] of [total]'),
+
+    VIDEO_START_COUNTDOWN: getConfigValue(config, 'VIDEO_START_COUNTDOWN', 'Video starts in [countdown]s'),
 };

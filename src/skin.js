@@ -26,8 +26,9 @@ var onPlayerEvent = function(event, eventData) {
             this.setControls();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
+            var clickThroughURL = getClickThroughURL(eventData.ad);
             var linearAdStartedControls = [
-                'muteButton', 'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton'
+                'muteButton', 'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink'
             ];
 
             this._isPlayingVPAID = false;
@@ -50,6 +51,7 @@ var onPlayerEvent = function(event, eventData) {
                 }
             }
 
+            this._controls.clickThroughLink.setUrl(clickThroughURL);
             this.setControls(linearAdStartedControls);
             this._controls.adCounter.update();
             break;
@@ -67,19 +69,19 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown' ]);
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
@@ -198,6 +200,7 @@ this._controls = {
     hoverOverlay:                           new HoverOverlay(skinDiv, adPlayer),
     pauseButton:                            new PauseButton(skinDiv, adPlayer), 
     videoStartCountdown:                    new VideoStartCountdown(skinDiv, adPlayer),
+    clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
 };
 
 addPlayerEventListeners(adPlayer);

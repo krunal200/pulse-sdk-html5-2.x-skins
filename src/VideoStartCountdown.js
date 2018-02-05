@@ -6,7 +6,7 @@ var VideoStartCountdown = function (div, adPlayer) {
     this._vsOverlay.className = "pulse-video-start-countdown";
     this.hide();
     div.appendChild(this._vsOverlay);
-}
+};
 
 VideoStartCountdown.prototype = {
     show: function() {
@@ -16,6 +16,6 @@ VideoStartCountdown.prototype = {
         this._vsOverlay.className = "pulse-video-start-countdown";
     },
     setRemainingTime: function(totalDuration, currentTime) {
-    	this._vsOverlay.innerHTML = 'Video starts in ' + Math.round(totalDuration - currentTime) + 's';
+    	this._vsOverlay.innerHTML = SKIN_STRINGS.VIDEO_START_COUNTDOWN.replace('[countdown]', Math.round(totalDuration - currentTime));
     },
 };

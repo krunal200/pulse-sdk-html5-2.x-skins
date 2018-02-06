@@ -1,6 +1,6 @@
 var MuteButton = function(div, adPlayer, isMuted) {
-    this._mutedClassNames = 'pulse-mute-button pulse-mute-button-muted';
-    this._unmutedClassNames = 'pulse-mute-button pulse-mute-button-unmuted';
+    this._mutedClassNames = 'pulse-control-container__child pulse-mute-button pulse-mute-button-muted';
+    this._unmutedClassNames = 'pulse-control-container__child pulse-mute-button pulse-mute-button-unmuted';
 
     // if(!bowser && (!bowser.mobile || !bowser.tablet)) {
     //     this._mutedClassNames += ' allowHover';
@@ -13,7 +13,7 @@ var MuteButton = function(div, adPlayer, isMuted) {
     this._button = document.createElement('div');
     this._button.addEventListener('click', this.click.bind(this));
     this.hide();
-    
+
     div.appendChild(this._button);
 
     // reverted in click()

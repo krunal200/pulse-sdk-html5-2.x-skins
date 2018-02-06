@@ -16,7 +16,6 @@ ControlContainer.prototype = {
     	this._controlContainer.className = "pulse-control-container";
     },
     appendChild: function (childElement) {
-    	childElement.classList.add('pulse-control-container__child');
     	this._controlContainer.appendChild(childElement);
     }
 };

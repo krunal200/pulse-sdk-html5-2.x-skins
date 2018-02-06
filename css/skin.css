@@ -348,15 +348,13 @@
     background-position: center;
 }
 
-.pulse-mute-button-muted{
+.pulse-mute-button-unmuted{
     background-image: url(../res/ic_volume_up_white_48px.svg);
 }
 
-.pulse-mute-button-unmuted {
+.pulse-mute-button-muted {
     background-image: url(../res/ic_volume_off_white_48px.svg);
 }
-
-
 
 .pulse-visible{
     z-index: 10000;

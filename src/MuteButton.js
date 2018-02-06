@@ -1,31 +1,20 @@
 var MuteButton = function(div, adPlayer, isMuted) {
-    this._mutedClassNames = 'pulse-skin-button pulse-mute-button-muted';
-    this._unmutedClassNames = 'pulse-skin-button pulse-mute-button-unmuted';
+    this._mutedClassNames = 'pulse-mute-button pulse-mute-button-muted';
+    this._unmutedClassNames = 'pulse-mute-button pulse-mute-button-unmuted';
 
-    if(!bowser && (!bowser.mobile || !bowser.tablet)) {
-        this._mutedClassNames += ' allowHover';
-        this._unmutedClassNames += ' allowHover';
-    }
+    // if(!bowser && (!bowser.mobile || !bowser.tablet)) {
+    //     this._mutedClassNames += ' allowHover';
+    //     this._unmutedClassNames += ' allowHover';
+    // }
 
     this._parent = div;
     this._adPlayer = adPlayer;
 
-    // container
-    this._container = document.createElement('div');
-    this._container.className = 'pulse-skin-button-container';
-
-    // aspect ratio-maintaining dummy
-    this._dummy = document.createElement('div');
-    this._dummy.className = 'pulse-skin-button-ar';
-
-    // actual button
     this._button = document.createElement('div');
     this._button.addEventListener('click', this.click.bind(this));
     this.hide();
-
-    this._container.appendChild(this._dummy);
-    this._container.appendChild(this._button);
-    div.appendChild(this._container);
+    
+    div.appendChild(this._button);
 
     // reverted in click()
     this._muted = isMuted;

@@ -206,14 +206,6 @@
     background-image: url(../res/close.png);
 
 }
-
-.pulse-mute-button-muted, .allowHover .pulse-mute-button-unmuted:hover {
-    background-image: url(../res/muted.png);
-}
-
-.pulse-mute-button-unmuted, .allowHover .pulse-mute-button-muted:hover {
-    background-image: url(../res/unmuted.png);
-}
 /*
 .pulse-progress{
     height: 0.75%;
@@ -323,6 +315,47 @@
 .video-js:hover .pulse-click-through-link {
     bottom: 73px;
 }
+
+.pulse-control-container {
+    position: absolute;
+    opacity: 0;
+    right: 10px;
+    bottom: 3px;
+    height: 48px;
+    /*background-color: red; */
+    transition: opacity 400ms ease-out;
+    transition-delay: 100ms;
+}
+
+.pulse-control-container__child {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.video-js:hover .pulse-control-container {
+    opacity: 1;
+}
+
+
+.pulse-mute-button {
+    width: 22.6px;
+    height: 22px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    pointer-events: all;
+    cursor: pointer;
+    margin: 13px;
+    background-position: center;
+}
+
+.pulse-mute-button-muted{
+    background-image: url(../res/ic_volume_up_white_48px.svg);
+}
+
+.pulse-mute-button-unmuted {
+    background-image: url(../res/ic_volume_off_white_48px.svg);
+}
+
 
 
 .pulse-visible{

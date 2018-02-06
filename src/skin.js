@@ -28,7 +28,7 @@ var onPlayerEvent = function(event, eventData) {
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             var clickThroughURL = getClickThroughURL(eventData.ad);
             var linearAdStartedControls = [
-                'muteButton', 'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink'
+                'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer'
             ];
 
             this._isPlayingVPAID = false;
@@ -69,19 +69,19 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink' ]);
+                this.setControls([ 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink', 'controlContainer' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink' ]);
+                this.setControls([ 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink', 'controlContainer' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink' ]);
+            this.setControls([ 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink', 'controlContainer' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink' ]);
+                this.setControls([ 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink' ]);
+                this.setControls([ 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
@@ -180,6 +180,8 @@ this._isPlayingVPAID = false;
 this._isFullscreen = false;
 this._adPlayer = adPlayer;
 
+var controlContainer = new ControlContainer(skinDiv, adPlayer);
+
 this._controls = {
     playButton:                             new PlayButton(skinDiv, adPlayer, this),
     loadingSpinner:                         new LoadingSpinner(skinDiv, adPlayer),
@@ -187,7 +189,7 @@ this._controls = {
     progressBar:                            new ProgressBar(skinDiv, adPlayer),
     skipCountdown:                          new SkipCountdown(skinDiv, adPlayer),
     adCounter:                              new AdCounter(skinDiv, adPlayer),
-    muteButton:                             new MuteButton(skinDiv, adPlayer, false),
+    muteButton:                             new MuteButton(controlContainer, adPlayer, false),
     overlayCloseButton:                     new CloseButton(overlayDiv, adPlayer, (function() {
                                                                                         this._adPlayer.overlayAdClosed();
                                                                                         this._controls.overlayCloseButton.hide();
@@ -201,6 +203,9 @@ this._controls = {
     pauseButton:                            new PauseButton(skinDiv, adPlayer), 
     videoStartCountdown:                    new VideoStartCountdown(skinDiv, adPlayer),
     clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
+    controlContainer:                       controlContainer,
+    // clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
+    // clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
 };
 
 addPlayerEventListeners(adPlayer);

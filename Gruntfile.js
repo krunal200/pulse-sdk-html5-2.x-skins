@@ -4,6 +4,7 @@ module.exports = function(grunt) {
     const sourceBanner = `/**\n * !${pkg.name} v${pkg.version} / ${date} / Ooyala Pulse Ad Player Base Skin\n */\n`;
     const sourceFiles = [
         'src/intro.js',
+        'src/ControlContainer.js',
         'src/PlayButton.js',
         'src/PauseButton.js',
         'src/SkipButton.js',

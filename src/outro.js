@@ -18,6 +18,7 @@ if(OO && OO.Pulse) {
 				pauseButton: true,
 				videoStartCountdown: true,
 				clickThroughLink: true,
+				controlContainer: true
 			};
 			if(typeof config !== 'object') {
 				config = {};

@@ -43,9 +43,13 @@ function getAgregatedAdTime (adBreak) {
 	return adBreak._playableAdsRemaining
 		.reduce(function(aggregatedTime, ad) {
 			try {
-				return ad.creatives[0].duration + aggregatedTime;
+				return getCreativeDuration(ad) + aggregatedTime;
 			} catch (e) {
 				return aggregatedTime;
 			}
 	    }, 0)
+}
+
+function getCreativeDuration (ad) {
+	return ad.creatives[0].duration;
 }

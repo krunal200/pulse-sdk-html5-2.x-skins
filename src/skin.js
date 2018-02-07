@@ -56,6 +56,7 @@ var onPlayerEvent = function(event, eventData) {
             this._controls.clickThroughLink.setUrl(clickThroughURL);
             this.setControls(linearAdStartedControls);
             this._controls.adCounter.update();
+            this._controls.videoStartCountdown.setCurrentAdDuration(getCreativeDuration(eventData.ad.getCoreAd()));
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_FINISHED:
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED:

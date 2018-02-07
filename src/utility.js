@@ -38,3 +38,14 @@ function exitFullscreenImpl() {
 		document.msExitFullscreen()
 	}
 }
+
+function getAgregatedAdTime (adBreak) {
+	return adBreak._playableAdsRemaining
+		.reduce(function(aggregatedTime, ad) {
+			try {
+				return ad.creatives[0].duration + aggregatedTime;
+			} catch (e) {
+				return aggregatedTime;
+			}
+	    }, 0)
+}

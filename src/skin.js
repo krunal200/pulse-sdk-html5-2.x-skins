@@ -19,8 +19,10 @@ var SKIN_EVENTS = [
 var onPlayerEvent = function(event, eventData) {
     switch (event) {
         case OO.Pulse.AdPlayer.Events.AD_BREAK_STARTED:
-            this.setControls([ 'loadingSpinner ']);
+            this.setControls([ 'loadingSpinner', 'videoStartCountdown']);
             this._controls.adCounter.setAdBreak(eventData.adBreak);
+            this._controls.videoStartCountdown.setAggregatedTime(getAgregatedAdTime(eventData.adBreak));
+            this._controls.videoStartCountdown.setAdType(eventData.adBreak.getBreakPosition());
             break;
         case OO.Pulse.AdPlayer.Events.AD_BREAK_FINISHED:
             this.setControls();
@@ -57,12 +59,13 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_FINISHED:
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED:
-            this.setControls([ 'loadingSpinner' ]);
+            this.setControls([ 'loadingSpinner', 'videoStartCountdown']);
             this._controls.skipCountdown.setAd(null);
+            this._controls.videoStartCountdown.reduceAggregatedTime();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS:
             this._controls.progressBar.setProgress(eventData.duration, eventData.position);
-            this._controls.videoStartCountdown.setRemainingTime(eventData.duration, eventData.position);
+            this._controls.videoStartCountdown.updateTime(eventData.position);
             if(!this._isPlayingVPAID) {
                 this._controls.skipCountdown.update(eventData.position);
             }

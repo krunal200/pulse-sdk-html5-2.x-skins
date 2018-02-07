@@ -7,5 +7,6 @@ var SKIN_STRINGS = {
 
     AD_COUNTER: getConfigValue(config, 'AD_COUNTER', 'Ad [position] of [total]'),
 
-    VIDEO_START_COUNTDOWN: getConfigValue(config, 'VIDEO_START_COUNTDOWN', 'Video starts in [countdown]s'),
+    VIDEO_START_COUNTDOWN_PREROLL: getConfigValue(config, 'VIDEO_START_COUNTDOWN_PREROLL', 'Video starts in [countdown]s'),
+    VIDEO_START_COUNTDOWN_MIDROLL: getConfigValue(config, 'VIDEO_START_COUNTDOWN_MIDROLL', 'Video resumes in [countdown]s'),
 };

@@ -28,7 +28,7 @@ var onPlayerEvent = function(event, eventData) {
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             var clickThroughURL = getClickThroughURL(eventData.ad);
             var linearAdStartedControls = [
-                'muteButton', 'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer'
+                'muteButton', 'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton'
             ];
 
             this._isPlayingVPAID = false;
@@ -69,19 +69,19 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink', 'controlContainer' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink', 'controlContainer' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink', 'controlContainer' ]);
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
@@ -136,22 +136,22 @@ var addPlayerEventListeners = function(adPlayer) {
 var addFullScreenListeners = function() {
     document.addEventListener("webkitfullscreenchange", function() {
         this._isFullscreen = document.webkitIsFullScreen;
-        this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
+        this.fullScreenChangeHandler(this._isFullscreen);
     }.bind(this));
 
     document.addEventListener("mozfullscreenchange", function() {
         this._isFullscreen = document.mozFullScreen;
-        this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
+        this.fullScreenChangeHandler(this._isFullscreen);
     }.bind(this));
 
     document.addEventListener("fullscreenchange", function() {
         this._isFullscreen = document.fullscreen;
-        this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
+        this.fullScreenChangeHandler(this._isFullscreen);
     }.bind(this));
 
     document.addEventListener("msfullscreenchange", function() {
         this._isFullscreen = document.msFullscreenElement;
-        this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, this._isFullscreen);
+        this.fullScreenChangeHandler(this._isFullscreen);
     }.bind(this));
 }.bind(this);
 
@@ -180,6 +180,15 @@ this._isPlayingVPAID = false;
 this._isFullscreen = false;
 this._adPlayer = adPlayer;
 
+this.fullScreenChangeHandler = function (isFullScreen) {
+    this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, isFullScreen);
+    if(isFullScreen) {
+        this._controls.fullScreenButton.setActive();
+    } else {
+        this._controls.fullScreenButton.setInactive();
+    }
+}.bind(this);
+
 var controlContainer = new ControlContainer(skinDiv, adPlayer);
 
 this._controls = {
@@ -204,8 +213,7 @@ this._controls = {
     videoStartCountdown:                    new VideoStartCountdown(skinDiv, adPlayer),
     clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
     controlContainer:                       controlContainer,
-    // clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
-    // clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
+    fullScreenButton:                       new FullScreenButton(controlContainer, adPlayer),
 };
 
 addPlayerEventListeners(adPlayer);

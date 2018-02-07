@@ -11,6 +11,7 @@ module.exports = function(grunt) {
         'src/SkipCountdown.js',
         'src/ProgressBar.js',
         'src/HoverOverlay.js',
+        'src/FullScreenButton.js',
         'src/LoadingSpinner.js',
         'src/VideoStartCountdown.js',
         'src/ClickThroughLink.js',

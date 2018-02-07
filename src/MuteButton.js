@@ -63,7 +63,7 @@ MuteButton.prototype = {
     },
 
     show: function() {
-        this._button.style.display = 'block';
+        this._button.style.display = 'inline-block';
         if(this._adPlayer.getVolume()){
             this._button.className = this._adPlayer.getVolume() ? this._unmutedClassNames : this._mutedClassNames;
         }

@@ -292,6 +292,14 @@
     font-family: Roboto, 'sans-serif';
     color: #fff;
     margin-left: 10px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.pulse-click-through-link:hover, 
+.pulse-click-through-link:active,
+.pulse-click-through-link:visited {
+  color: #fff !important;
 }
 
 .pulse-click-through-link__icon {

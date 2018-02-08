@@ -2,7 +2,10 @@ var ClickThroughLink = function (div, adPlayer) {
 	this._domain = '';
     this._parent = div;
     this._adPlayer = adPlayer;
-    this._clickThroughLink = document.createElement("div");
+    this._clickThroughLink = document.createElement("a");
+    this._clickThroughLink.target = '_blank';
+    this._clickThroughLink.style.pointerEvents = "all";
+
     var icon = document.createElement('span');
     icon.className = 'pulse-click-through-link__icon';
     var link = document.createElement('span');
@@ -30,5 +33,6 @@ ClickThroughLink.prototype = {
 			this._domain = '';	
     	}
     	this._clickThroughLink.querySelector('.pulse-click-through-link__link').innerHTML = this._domain;
+        this._clickThroughLink.href = url;
     },
 };

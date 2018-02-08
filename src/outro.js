@@ -20,6 +20,7 @@ if(OO && OO.Pulse) {
 				clickThroughLink: true,
 				controlContainer: true,
 				fullScreenButton: true,
+				progressBarOverlay: true,
 			};
 			if(typeof config !== 'object') {
 				config = {};

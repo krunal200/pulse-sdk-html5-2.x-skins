@@ -8,6 +8,7 @@ module.exports = function(grunt) {
         'src/PlayButton.js',
         'src/PauseButton.js',
         'src/SkipButton.js',
+        'src/ProgressBarOverlay.js',
         'src/SkipCountdown.js',
         'src/ProgressBar.js',
         'src/HoverOverlay.js',

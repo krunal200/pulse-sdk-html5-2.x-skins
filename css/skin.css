@@ -358,14 +358,14 @@
 }
 
 .pulse-fullscreen {
-    width: 20.4px;
-    height: 20px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    pointer-events: all;
-    cursor: pointer;
-    margin: 14px;
-    background-position: center;
+  width: 20.4px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  pointer-events: all;
+  cursor: pointer;
+  margin: 14px;
+  background-position: center;
 }
 
 .pulse-fullscreen-active {
@@ -374,6 +374,16 @@
 
 .pulse-fullscreen-inactive {
     background-image: url('../res/fullscreen.svg');
+}
+
+.pulse-progress-bar-overlay {
+  position: absolute;
+  height: 120px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.0));
+  z-index: 999 !important;
 }
 
 .pulse-visible {
@@ -398,8 +408,6 @@
     from {transform:rotate(0deg);}
     to {transform:rotate(359deg);}
 }
-
-
 /*Spinner code start*/
 .vjs-hotstar-spinner {
   position: absolute;

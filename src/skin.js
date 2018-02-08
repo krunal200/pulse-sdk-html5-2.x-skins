@@ -30,7 +30,7 @@ var onPlayerEvent = function(event, eventData) {
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             var clickThroughURL = getClickThroughURL(eventData.ad);
             var linearAdStartedControls = [
-                'muteButton', 'adCounter', 'progressBar', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton'
+                'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton'
             ];
 
             this._isPlayingVPAID = false;
@@ -73,19 +73,19 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
@@ -218,6 +218,7 @@ this._controls = {
     clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
     controlContainer:                       controlContainer,
     fullScreenButton:                       new FullScreenButton(controlContainer, adPlayer),
+    progressBarOverlay:                     new ProgressBarOverlay(skinDiv, adPlayer),
 };
 
 addPlayerEventListeners(adPlayer);

@@ -14,6 +14,13 @@ if(OO && OO.Pulse) {
 				muteButton: true,
 				overlayCloseButton: true,
 				pauseAdCloseButton: true,
+				hoverOverlay: true,
+				pauseButton: true,
+				videoStartCountdown: true,
+				clickThroughLink: true,
+				controlContainer: true,
+				fullScreenButton: true,
+				progressBarOverlay: true,
 			};
 			if(typeof config !== 'object') {
 				config = {};
@@ -32,7 +39,10 @@ if(OO && OO.Pulse) {
 			OO.Pulse.adPlayerReady(function(adPlayer) {
 		        var skin = new PulseAdPlayerSkin(adPlayer, defaultComponentState, config);
 		    });
-		}
+		},
+		setRequestFullScreenImpl: function(implFn) {
+			requestFullScreenImpl = implFn;
+		} 
 	};
 } else {
     throw new Error("The Pulse SDK is not ready. Make sure to include the skin script _after_ the SDK script.");

@@ -22,7 +22,7 @@ ProgressBar.prototype = {
     hide: function() {
         this._progress.className = "pulse-progress-bar";
     },
-    setProgress: function(progress) {
-        this._progress.children[0].style.width = Math.round(progress * 100) + '%';
+    setProgress: function(totalDuration, currentTime) {
+        this._progress.children[0].style.width = (currentTime / totalDuration * 100) + '%';
     }
 };

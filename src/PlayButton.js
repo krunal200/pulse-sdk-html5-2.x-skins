@@ -1,11 +1,14 @@
 var PlayButton = function(div, adPlayer) {
+    var playButton = document.createElement("div"); 
+    playButton.className = "pulse-play-button";
     this._parent = div;
     this._adPlayer = adPlayer;
     this._button = document.createElement("div");
-    this._button.className = "pulse-play-button";
+    this._button.className = "pulse-clickable-play-button";
     this._button.style.pointerEvents = "all";
     this.hide();
 
+    this._button.appendChild(playButton);
     this._parent.appendChild(this._button);
 
     this._onClick = function() {

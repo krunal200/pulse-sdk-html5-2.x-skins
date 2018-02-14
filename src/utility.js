@@ -15,18 +15,6 @@ function getConfigValue(config, key, defaultValue) {
 	return config.hasOwnProperty(key) ? config[key] : defaultValue;
 }
 
-function getDomain (url) {
-	var regex = /^(?:(?:https?:)?\/\/)?(?:www\.)?(.*?)\//;
-	return url.match(regex)[1];
-}
-
-function getClickThroughURL (ad) {
-	var creative =  ad._ad.creatives[0];
-	return creative
-		? creative.clickThroughUrl
-		: '';
-}
-
 function exitFullscreenImpl() {
 	if(document.exitFullscreen) {
 		document.exitFullscreen()
@@ -51,5 +39,25 @@ function getAgregatedAdTime (adBreak) {
 }
 
 function getCreativeDuration (ad) {
-	return ad.creatives[0].duration;
+	try {
+		return ad.creatives[0].duration;
+	} catch (e) {
+		return 0;
+	}
+}
+
+function getExtensionNode(ad) {
+	try {
+		return JSON.parse(ad.getCoreAd().customId);
+	} catch (e) {
+		return {};
+	}
+}
+
+function getVideoAdTitle(extensionNode) {
+	try {
+		return extensionNode.videoAd.videoAdTitle;
+	} catch (e) {
+		return '';
+	}
 }

@@ -27,12 +27,9 @@ ClickThroughLink.prototype = {
     hide: function() {
         this._clickThroughLink.className = "pulse-click-through-link";
     },
-    setUrl: function(url) {
-    	this._domain = getDomain(url);
-    	if(!this._domain) {
-			this._domain = '';	
-    	}
+    setTitle: function(title, clickThroughLink) {
+    	this._domain = title;
     	this._clickThroughLink.querySelector('.pulse-click-through-link__link').innerHTML = this._domain;
-        this._clickThroughLink.href = url;
+        this._clickThroughLink.href = clickThroughLink;
     },
 };

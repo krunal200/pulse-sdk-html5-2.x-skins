@@ -28,7 +28,9 @@ var onPlayerEvent = function(event, eventData) {
             this.setControls();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
-            var clickThroughURL = getClickThroughURL(eventData.ad);
+            var extensionNode = getExtensionNode(eventData.ad);
+            var videoAdTitile = getVideoAdTitle(extensionNode);
+            var clickThroughLink = eventData.ad.getClickthroughURL();
             var linearAdStartedControls = [
                 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton'
             ];
@@ -53,7 +55,7 @@ var onPlayerEvent = function(event, eventData) {
                 }
             }
 
-            this._controls.clickThroughLink.setUrl(clickThroughURL);
+            this._controls.clickThroughLink.setTitle(videoAdTitile, clickThroughLink);
             this.setControls(linearAdStartedControls);
             this._controls.adCounter.update();
             this._controls.videoStartCountdown.setCurrentAdDuration(getCreativeDuration(eventData.ad.getCoreAd()));

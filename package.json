@@ -1,6 +1,6 @@
 {
   "name": "html5-adplayer-skin",
-  "version": "2.0.13",
+  "version": "2.0.14",
   "main": "dist/skin.min.js",
   "private": true,
   "dependencies": {},

@@ -47,7 +47,7 @@ module.exports = function(grunt) {
         pkg: pkg,
         clean: {
             skin: {
-                src: ['dist/']
+                src: ['dist/**/*.js', 'dist/**/*.css']
             }
         },
         postcss: {

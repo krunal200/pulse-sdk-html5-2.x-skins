@@ -20,7 +20,7 @@ pulse-play-button START
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 500;
+  z-index: 1000;
   cursor: pointer;
   opacity: 0.65;
   transition: opacity 300ms ease-out;
@@ -75,7 +75,7 @@ pulse-pause-button START
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 500;
+  z-index: 1000;
   cursor: pointer;
   opacity: 0;
   transition: opacity 300ms ease-out;
@@ -154,7 +154,7 @@ pulse-pause-button END
     left: 0;
     right: 0;
     bottom: 0;
-    /*z-index: 500;*/
+    /*z-index: 1000;*/
     background-color: black;
 }
 
@@ -239,7 +239,7 @@ pulse-pause-button END
 }
 
 .pulse-skin-button-container {
-    z-index: 500;
+    z-index: 1000;
     display: inline-block;
     position: absolute;
     width: 2%;
@@ -249,7 +249,7 @@ pulse-pause-button END
 }
 
 .pulse-skin-button-container-top {
-    z-index: 500;
+    z-index: 1000;
     display: inline-block;
     position: absolute;
     width: 3%;
@@ -367,7 +367,7 @@ pulse-progress-bar END
 .vjs-user-active .pulse-hover-overlay {
     background-color: rgba(0,0,0,0.1);
     cursor: pointer;
-    z-index: 450;
+    z-index: 900;
 }
 
 /*
@@ -378,7 +378,7 @@ pulse-video-start-countdown START
     position: absolute;
     right: 0;
     top: 10px;
-    z-index: 500;
+    z-index: 1000;
     background-color: rgba(0, 0, 0, 0.5);
     padding: 6px 18px 6px 12px;
     line-height: 19px;
@@ -572,16 +572,16 @@ pulse-control-container__child END
   left: 0;
   right: 0;
   background-image: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.0));
-  z-index: 450 !important;
+  z-index: 990 !important;
 }
 
 .pulse-visible {
-    z-index: 500;
+    z-index: 1000;
     display: block! important;
 }
 
 .pulse-hidden {
-    z-index: 500;
+    z-index: 1000;
     display: none;
 }
 

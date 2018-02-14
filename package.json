@@ -3,15 +3,16 @@
   "version": "1.6.2",
   "main": "dist/skin.min.js",
   "private": true,
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
+    "autoprefixer": "^8.0.0",
     "grunt": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-concat": "*",
-    "grunt-contrib-uglify": "*",
     "grunt-contrib-cssmin": "^1.0.1",
+    "grunt-contrib-uglify": "*",
     "grunt-contrib-watch": "^1.0.0",
-    "grunt-image-embed": "^0.3.3"
+    "grunt-image-embed": "^0.3.3",
+    "grunt-postcss": "^0.9.0"
   }
 }

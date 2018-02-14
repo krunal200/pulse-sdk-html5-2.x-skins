@@ -24,6 +24,16 @@ module.exports = function(grunt) {
         'src/skin.js',
         'src/outro.js'
     ];
+    const AUTOPREFIXER_BROWSERS = [
+        'Android 2.3',
+        'Android >= 4',
+        'Chrome >= 35',
+        'Firefox >= 31',
+        'Explorer >= 9',
+        'iOS >= 7',
+        'Opera >= 12',
+        'Safari >= 7.1'
+    ]
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -31,6 +41,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-image-embed');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-postcss');
 
     grunt.initConfig({
         pkg: pkg,
@@ -39,9 +50,21 @@ module.exports = function(grunt) {
                 src: ['dist/']
             }
         },
-        imageEmbed: {
+        postcss: {
+            options: {
+                map: true,
+                processors: [
+                    require('autoprefixer')({browsers: AUTOPREFIXER_BROWSERS})
+                ]
+            },
             dist: {
                 src: ['css/skin.css'],
+                dest: 'dist/skin.css'
+            }
+        },
+        imageEmbed: {
+            dist: {
+                src: ['dist/skin.css'],
                 dest:'dist/skin64.css',
                 options: {
                     maxImageSize: 0
@@ -93,7 +116,7 @@ module.exports = function(grunt) {
             },
             style: {
                 files: ['css/**/*.css'],
-                tasks: ['imageEmbed', 'cssmin', 'concat', 'uglify'],
+                tasks: ['postcss', 'imageEmbed', 'cssmin', 'concat', 'uglify'],
                 options: {
                     spawn: false
                 },
@@ -102,5 +125,5 @@ module.exports = function(grunt) {
 
     });
 
-    grunt.registerTask('default', [ 'clean', 'imageEmbed', 'cssmin', 'concat','uglify' ]);
+    grunt.registerTask('default', [ 'clean', 'postcss', 'imageEmbed', 'cssmin', 'concat','uglify' ]);
 };

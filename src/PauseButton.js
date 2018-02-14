@@ -1,11 +1,14 @@
 var PauseButton = function(div, adPlayer) {
+    var pauseButton = document.createElement("div"); 
+    pauseButton.className = "pulse-pause-button";
     this._parent = div;
     this._adPlayer = adPlayer;
     this._button = document.createElement("div");
-    this._button.className = "pulse-pause-button";
+    this._button.className = "pulse-clickable-pause-button";
     this._button.style.pointerEvents = "all";
     this.hide();
 
+    this._button.appendChild(pauseButton);
     this._parent.appendChild(this._button);
 
     this._onClick = function() {

@@ -1,48 +1,127 @@
-.pulse-play-button{
-    background:url(../res/ic_play_arrow_white_48px.svg) no-repeat center center;
-    width: 66.3px; /* after scaling it must be 120px */
-    height: 63.49px; /* after scaling it must be 120px */
+/*
+TABLET RULE
+@media (max-width: 768px) {}
+
+MOBILE RULE
+@media (max-width: 480px) {}
+*/
+
+/*
+pulse-play-button START
+ */
+.pulse-clickable-play-button {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index:1000;
+  cursor: pointer;
+  opacity: 0.65;
+  transition: opacity 300ms ease-out;
+}
+
+.pulse-play-button {
+    background-image: url(../res/ic_play_arrow_white_48px.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 90px;
+    height: 53px;
+    background-size: cover;
     position: absolute;
     margin: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index:1000;
-    cursor: pointer;
-    transform: scale(1.81,1.89);
-    opacity: 0.65;
-    transition: opacity 300ms ease-out;
 }
 
-.pulse-play-button:hover {
+.pulse-clickable-play-button:hover {
     opacity: 1;
+}
+
+@media (max-width: 480px) {
+  .pulse-clickable-play-button {
+    width: 70px;
+    height: 45px;
+    opacity: 1;
+  }
+
+  .pulse-play-button {
+    width: 68px;
+    height: 40px;
+  }
+}
+
+/*
+pulse-play-button END
+ */
+
+/*
+pulse-pause-button START
+ */
+
+.pulse-clickable-pause-button {
+  width: 120px;
+  height: 120px;
+  position: absolute;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index:1000;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 300ms ease-out;
 }
 
 .pulse-pause-button {
-    background:url(../res/ic_pause_white_48px.svg) no-repeat center center;
-    width: 82.76px; /* after scaling it must be 120px */
-    height: 61.22px; /* after scaling it must be 120px */
+    background-image:url(../res/ic_pause_white_48px.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 90px; 
+    height: 53px;
+    background-size: cover;
     position: absolute;
     margin: auto;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    z-index:1000;
-    cursor: pointer;
-    transform: scale(1.45, 1.96);
-    opacity: 0;
-    transition: opacity 300ms ease-out;
 }
 
-.vjs-user-active .pulse-pause-button {
+.vjs-user-active .pulse-clickable-pause-button {
     opacity: 0.65;
 }
 
-.vjs-user-active .pulse-pause-button:hover {
+.vjs-user-active .pulse-clickable-pause-button:hover {
     opacity: 1;
 }
+
+
+@media (max-width: 480px) {
+  .pulse-clickable-pause-button {
+    width: 70px;
+    height: 45px;
+  }
+
+  .vjs-user-active .pulse-clickable-pause-button {
+    opacity: 1;
+  }
+
+  .pulse-pause-button {
+    width: 68px;
+    height: 40px;
+  }
+}
+
+/*
+pulse-pause-button END
+ */
 
 .pulse-adplayer-skin{
     overflow: hidden;
@@ -227,6 +306,10 @@
 }
 */
 
+/*
+pulse-progress-bar START
+ */
+
 .pulse-progress-bar {
     display: none;
     height: 4px;
@@ -254,6 +337,24 @@
     right: 10px;
 }
 
+@media (max-width: 480px) {
+  .pulse-progress-bar {
+    height: 3px;
+  }
+
+  .pulse-progress-bar > span {
+    height: 3px;
+  }
+
+  .vjs-user-active .pulse-progress-bar {
+    bottom: 44px;
+  }
+}
+
+/*
+pulse-progress-bar END
+ */
+
 .pulse-hover-overlay {
     position: absolute;
     width: 100%;
@@ -266,6 +367,10 @@
     cursor: pointer;
     z-index: 999;
 }
+
+/*
+pulse-video-start-countdown START
+ */
 
 .pulse-video-start-countdown {
     position: absolute;
@@ -282,6 +387,22 @@
     font-family: Roboto, 'sans-serif';
 }
 
+
+@media (max-width: 480px) {
+  .pulse-video-start-countdown {
+    font-size: 14px;
+    padding: 5px 17px 5px 11px;
+  }
+}
+
+/*
+pulse-video-start-countdown END
+ */
+
+/*
+PULSE CLICK THROUGH LINK START
+ */
+
 .pulse-click-through-link {
     position: absolute;
     left: 0;
@@ -294,35 +415,66 @@
     margin-left: 10px;
     cursor: pointer;
     text-decoration: none;
-}
-
-.pulse-click-through-link:hover, 
-.pulse-click-through-link:active,
-.pulse-click-through-link:visited {
-  color: #fff !important;
-}
-
-.pulse-click-through-link__icon {
-    background:url(../res/ic_open_in_new_white_48px.svg) no-repeat center center;
-    width: 38px;
-    height: 38px;
-    display: inline-block;
-    transform: scale(0.42, 0.43);
-    vertical-align: middle;
-    margin-left: -11px;
-    margin-bottom: -11px;
-    margin-right: -1px;
-}
-
-.pulse-click-through-link__link {
-    vertical-align: middle;
-    margin-bottom: -11px;
-    display: inline-block;
+    opacity: 0.65;
 }
 
 .vjs-user-active .pulse-click-through-link {
     bottom: 73px;
 }
+
+.pulse-click-through-link:hover  {
+  opacity: 1;
+}
+
+.pulse-click-through-link:hover, 
+.pulse-click-through-link:active,
+.pulse-click-through-link:visited,
+.pulse-click-through-link:focus {
+  color: #fff !important;
+}
+
+.pulse-click-through-link__icon {
+    background-image: url(../res/ic_open_in_new_white_48px.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    width: 19px;
+    height: 19px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 7px;
+}
+
+.pulse-click-through-link__link {
+    vertical-align: middle;
+    display: inline-block;
+}
+
+@media (max-width: 480px) {
+  .pulse-click-through-link {
+    bottom: 11px;
+    font-size: 14px;
+    opacity: 1;
+  }
+
+  .vjs-user-active .pulse-click-through-link {
+    bottom: 55px;
+  }
+
+  .pulse-click-through-link__icon {
+    width: 15px;
+    height: 15px;
+  }
+
+}
+
+/*
+PULSE CLICK THROUGH LINK END
+ */
+
+/*
+pulse-control-container START
+ */
 
 .pulse-control-container {
     position: absolute;
@@ -383,6 +535,33 @@
 .pulse-fullscreen-inactive {
     background-image: url('../res/fullscreen.svg');
 }
+
+@media (max-width: 480px) {
+  .pulse-control-container__child {
+    opacity: 1;
+  }
+
+  .pulse-control-container {
+    height: 44px;
+    bottom: -44px;
+  }
+
+  .vjs-user-active .pulse-control-container {
+    bottom: 0;
+  }
+
+  .pulse-mute-button {
+    margin: 10px 12px;
+  }
+
+  .pulse-fullscreen {
+    margin: 12px 14px;
+  }
+}
+
+/*
+pulse-control-container__child END
+ */
 
 .pulse-progress-bar-overlay {
   position: absolute;

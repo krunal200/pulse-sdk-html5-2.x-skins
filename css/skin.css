@@ -480,10 +480,17 @@ pulse-control-container START
 
 .pulse-control-container {
     position: absolute;
-    right: 10px;
     bottom: -51px;
     height: 48px;
     transition: bottom 500ms ease-out;
+}
+
+.pulse-control-container-right {
+  right: 10px;
+}
+
+.pulse-control-container-left {
+  left: 10px;
 }
 
 .vjs-user-active .pulse-control-container{

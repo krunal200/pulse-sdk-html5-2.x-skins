@@ -18,7 +18,8 @@ if(OO && OO.Pulse) {
 				pauseButton: true,
 				videoStartCountdown: true,
 				clickThroughLink: true,
-				controlContainer: true,
+				controlContainerLeft: true,
+				controlContainerRight: true,
 				fullScreenButton: true,
 				progressBarOverlay: true,
 			};

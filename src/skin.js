@@ -32,7 +32,7 @@ var onPlayerEvent = function(event, eventData) {
             var videoAdTitile = getVideoAdTitle(extensionNode);
             var clickThroughLink = eventData.ad.getClickthroughURL();
             var linearAdStartedControls = [
-                'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton'
+                'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainerLeft', 'controlContainerRight', 'fullScreenButton'
             ];
 
             this._isPlayingVPAID = false;
@@ -75,19 +75,19 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PAUSED:
             if(!this._isPlayingVPAID) {            
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'playButton', 'hoverOverlay', 'videoStartCountdown', 'clickThroughLink', 'controlContainerLeft', 'controlContainerRight', 'fullScreenButton' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'videoStartCountdown', 'playButton', 'clickThroughLink', 'controlContainerLeft', 'controlContainerRight', 'fullScreenButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PLAYING:
-            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+            this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'pauseButton', 'videoStartCountdown', 'clickThroughLink', 'controlContainerLeft', 'controlContainerRight', 'fullScreenButton' ]);
             break;
         case OO.Pulse.AdPlayer.Events.SHOW_SKIP_BUTTON:
             if(this._isPlayingVPAID) {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainerLeft', 'controlContainerRight', 'fullScreenButton' ]);
             } else {
-                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton' ]);
+                this.setControls([ 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'skipButton', 'hoverOverlay', 'videoStartCountdown', 'pauseButton', 'clickThroughLink', 'controlContainerLeft', 'controlContainerRight', 'fullScreenButton' ]);
             }
             break;
         case OO.Pulse.AdPlayer.Events.AD_VOLUME_CHANGED:
@@ -195,7 +195,8 @@ this.fullScreenChangeHandler = function (isFullScreen) {
     }
 }.bind(this);
 
-var controlContainer = new ControlContainer(skinDiv, adPlayer);
+var controlContainerLeft = new ControlContainer(skinDiv, adPlayer);
+var controlContainerRight = new ControlContainer(skinDiv, adPlayer, true);
 
 this._controls = {
     playButton:                             new PlayButton(skinDiv, adPlayer, this),
@@ -204,7 +205,7 @@ this._controls = {
     progressBar:                            new ProgressBar(skinDiv, adPlayer),
     skipCountdown:                          new SkipCountdown(skinDiv, adPlayer),
     adCounter:                              new AdCounter(skinDiv, adPlayer),
-    muteButton:                             new MuteButton(controlContainer, adPlayer, false),
+    muteButton:                             new MuteButton(controlContainerLeft, adPlayer, false),
     overlayCloseButton:                     new CloseButton(overlayDiv, adPlayer, (function() {
                                                                                         this._adPlayer.overlayAdClosed();
                                                                                         this._controls.overlayCloseButton.hide();
@@ -218,8 +219,9 @@ this._controls = {
     pauseButton:                            new PauseButton(skinDiv, adPlayer), 
     videoStartCountdown:                    new VideoStartCountdown(skinDiv, adPlayer),
     clickThroughLink:                       new ClickThroughLink(skinDiv, adPlayer),
-    controlContainer:                       controlContainer,
-    fullScreenButton:                       new FullScreenButton(controlContainer, adPlayer),
+    controlContainerLeft:                   controlContainerLeft,
+    controlContainerRight:                  controlContainerRight,
+    fullScreenButton:                       new FullScreenButton(controlContainerRight, adPlayer),
     progressBarOverlay:                     new ProgressBarOverlay(skinDiv, adPlayer),
 };
 

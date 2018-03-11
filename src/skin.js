@@ -191,8 +191,18 @@ this.fullScreenChangeHandler = function (isFullScreen) {
     this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, isFullScreen);
     if(isFullScreen) {
         this._controls.fullScreenButton.setActive();
+        try {
+            if(bowser.mobile || bowser.tablet) {
+                window.screen.orientation.lock('landscape')
+            }
+        } catch (e) {}
     } else {
         this._controls.fullScreenButton.setInactive();
+        try {
+            if(bowser.mobile || bowser.tablet) {
+                window.screen.orientation.unlock();
+            }
+        } catch (e) {}
     }
 }.bind(this);
 

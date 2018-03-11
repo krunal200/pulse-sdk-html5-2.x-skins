@@ -181,6 +181,7 @@ var container = adPlayer.getContainer();
         }
     })
 skinDiv.className = 'pulse-adplayer-skin';
+skinDiv.style.pointerEvents = 'all';
 
 this._isPlayingVPAID = false;
 this._isFullscreen = false;

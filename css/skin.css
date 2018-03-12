@@ -566,6 +566,14 @@ pulse-control-container START
 pulse-control-container__child END
  */
 
+.pulse-adplayer-skin {
+  pointer-events: all !important;
+}
+
+.vjs-user-active .pulse-adplayer-skin {
+  pointer-events: none !important;
+}
+
 .pulse-progress-bar-overlay {
   position: absolute;
   height: 120px;

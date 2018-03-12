@@ -29,7 +29,7 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             var extensionNode = getExtensionNode(eventData.ad);
-            var videoAdTitile = getVideoAdTitle(extensionNode);
+            var videoAdTitile = getVideoAdTitle(extensionNode) || 'Visit Advertiser';
             var clickThroughLink = eventData.ad.getClickthroughURL();
             var linearAdStartedControls = [
                 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton'
@@ -190,8 +190,18 @@ this.fullScreenChangeHandler = function (isFullScreen) {
     this._adPlayer.resize(OO.Pulse.AdPlayer.Settings.SCALING.AUTO, OO.Pulse.AdPlayer.Settings.SCALING.AUTO, isFullScreen);
     if(isFullScreen) {
         this._controls.fullScreenButton.setActive();
+        try {
+            if(isMobileOrTablet()) {
+                window.screen.orientation.lock('landscape')
+            }
+        } catch (e) {}
     } else {
         this._controls.fullScreenButton.setInactive();
+        try {
+            if(isMobileOrTablet()) {
+                window.screen.orientation.unlock();
+            }
+        } catch (e) {}
     }
 }.bind(this);
 

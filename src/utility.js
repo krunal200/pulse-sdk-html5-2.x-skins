@@ -61,3 +61,11 @@ function getVideoAdTitle(extensionNode) {
 		return '';
 	}
 }
+
+function isMobileOrTablet () {
+	try {
+		return bowser.mobile || bowser.tablet;
+	} catch (e) {
+		return false;
+	} 
+}

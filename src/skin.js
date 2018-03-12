@@ -181,7 +181,6 @@ var container = adPlayer.getContainer();
         }
     })
 skinDiv.className = 'pulse-adplayer-skin';
-skinDiv.style.pointerEvents = 'all';
 
 this._isPlayingVPAID = false;
 this._isFullscreen = false;
@@ -192,14 +191,14 @@ this.fullScreenChangeHandler = function (isFullScreen) {
     if(isFullScreen) {
         this._controls.fullScreenButton.setActive();
         try {
-            if(bowser.mobile || bowser.tablet) {
+            if(isMobileOrTablet()) {
                 window.screen.orientation.lock('landscape')
             }
         } catch (e) {}
     } else {
         this._controls.fullScreenButton.setInactive();
         try {
-            if(bowser.mobile || bowser.tablet) {
+            if(isMobileOrTablet()) {
                 window.screen.orientation.unlock();
             }
         } catch (e) {}

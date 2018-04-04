@@ -11,6 +11,9 @@ var ProgressBar = function (div, adPlayer) {
     this._progress.min = 0;
     this._progress.max = 1;
     this._progress.value = 0;
+    this._aggregatedTime = 0;
+    this._currentLinearAdDuration = 0;
+    this._elapsedTime = 0;
     this.hide();
     div.appendChild(this._progress);
 }
@@ -22,7 +25,19 @@ ProgressBar.prototype = {
     hide: function() {
         this._progress.className = "pulse-progress-bar";
     },
+    setAggregatedTime: function (totalAdBreakTime) {
+        this._elapsedTime = 0;
+        this._aggregatedTime = totalAdBreakTime;
+    },
+    setCurrentAdDuration: function (duration) {
+        this._currentLinearAdDuration = duration;
+    },
+    addAggregatedTime: function () {
+        this._elapsedTime += this._currentLinearAdDuration;
+        this._currentLinearAdDuration = 0;
+    },
     setProgress: function(totalDuration, currentTime) {
-        this._progress.children[0].style.width = (currentTime / totalDuration * 100) + '%';
+        var time = (this._elapsedTime + currentTime) / this._aggregatedTime;
+        this._progress.children[0].style.width = ( time * 100 ) + '%';
     }
 };

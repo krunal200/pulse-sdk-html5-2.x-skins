@@ -14,6 +14,7 @@ var ProgressBar = function (div, adPlayer) {
     this._aggregatedTime = 0;
     this._currentLinearAdDuration = 0;
     this._elapsedTime = 0;
+    this._mode = undefined;
     this.hide();
     div.appendChild(this._progress);
 }
@@ -37,7 +38,15 @@ ProgressBar.prototype = {
         this._currentLinearAdDuration = 0;
     },
     setProgress: function(totalDuration, currentTime) {
-        var time = (this._elapsedTime + currentTime) / this._aggregatedTime;
+        var time;
+        if(inAggregatedMode(this._mode)) {
+            time = (this._elapsedTime + currentTime) / this._aggregatedTime;
+        } else {
+            time = currentTime / totalDuration
+        }
         this._progress.children[0].style.width = ( time * 100 ) + '%';
+    },
+    setMode: function (mode) {
+        this._mode = mode;
     }
 };

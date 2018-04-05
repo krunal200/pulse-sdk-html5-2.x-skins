@@ -7,6 +7,7 @@ var VideoStartCountdown = function (div, adPlayer) {
     this._aggregatedTime = 0;
     this._message = '';
     this._currentLinearAdDuration = 0;
+    this._mode = undefined;
     this.hide();
     div.appendChild(this._vsOverlay);
 };
@@ -19,8 +20,12 @@ VideoStartCountdown.prototype = {
         this._vsOverlay.className = "pulse-video-start-countdown";
     },
     updateTime: function (spentTime) {
+        var countdown = 'short time';
+        if(inAggregatedMode(this._mode)) {
+            countdown = Math.round(this._aggregatedTime - spentTime) + 's';
+        }
     	this._vsOverlay.innerHTML = this._message
-    		.replace('[countdown]', Math.round(this._aggregatedTime - spentTime));
+    		.replace('[countdown]', countdown);
     },
     setAggregatedTime: function (totalAdBreakTime) {
     	this._aggregatedTime = totalAdBreakTime;
@@ -41,5 +46,8 @@ VideoStartCountdown.prototype = {
    	},
    	setCurrentAdDuration: function (duration) {
    		this._currentLinearAdDuration = duration;
-   	}
+   	},
+    setMode: function (mode) {
+        this._mode = mode;
+    }
 };

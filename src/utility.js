@@ -42,7 +42,7 @@ function getCreativeDuration (ad) {
 	try {
 		return ad.creatives[0].duration;
 	} catch (e) {
-		return 0;
+		return NaN;
 	}
 }
 
@@ -68,4 +68,8 @@ function isMobileOrTablet () {
 	} catch (e) {
 		return false;
 	} 
+}
+
+function inAggregatedMode (mode) {
+	return mode === ENUM.AD_BREAK_MODE.AGGREGATED_MODE;
 }

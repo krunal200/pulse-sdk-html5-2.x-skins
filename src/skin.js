@@ -15,22 +15,40 @@ var SKIN_EVENTS = [
     OO.Pulse.AdPlayer.Events.PAUSE_AD_PLAYER_HIDDEN,
     OO.Pulse.AdPlayer.Events.AD_CLICKED
 ];
-
+var AD_BREAK_MODE = undefined;
 var onPlayerEvent = function(event, eventData) {
     switch (event) {
         case OO.Pulse.AdPlayer.Events.AD_BREAK_STARTED:
-            this.setControls([ 'loadingSpinner', 'videoStartCountdown']);
+            var AD_BREAK_MODE = undefined;
+            this.setControls([ 'loadingSpinner']);
+            currentAdBreak = eventData.adBreak
+            getAgregatedAdTime(currentAdBreak);
             this._controls.adCounter.setAdBreak(eventData.adBreak);
-            this._controls.videoStartCountdown.setAggregatedTime(getAgregatedAdTime(eventData.adBreak));
             this._controls.videoStartCountdown.setAdType(eventData.adBreak.getBreakPosition());
+            this._controls.videoStartCountdown.setMode(AD_BREAK_MODE);
+            this._controls.progressBar.setMode(AD_BREAK_MODE);
             break;
         case OO.Pulse.AdPlayer.Events.AD_BREAK_FINISHED:
             this.setControls();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
+            if(currentAdBreak) {
+                var agregatedAdTime = getAgregatedAdTime(currentAdBreak);
+                if(typeof agregatedAdTime === 'number' && (agregatedAdTime === agregatedAdTime)) {
+                    AD_BREAK_MODE = ENUM.AD_BREAK_MODE.AGGREGATED_MODE;
+                    this._controls.videoStartCountdown.setAggregatedTime(agregatedAdTime);
+                    this._controls.progressBar.setAggregatedTime(agregatedAdTime);
+                } else {
+                    AD_BREAK_MODE = ENUM.AD_BREAK_MODE.INDIVIDUAL_NODE;
+                }
+                this._controls.videoStartCountdown.setMode(AD_BREAK_MODE);
+                this._controls.progressBar.setMode(AD_BREAK_MODE);
+                currentAdBreak = false;
+            }
             var extensionNode = getExtensionNode(eventData.ad);
             var videoAdTitile = getVideoAdTitle(extensionNode) || 'Visit Advertiser';
             var clickThroughLink = eventData.ad.getClickthroughURL();
+            var currentAdDuration = getCreativeDuration(eventData.ad.getCoreAd());
             var linearAdStartedControls = [
                 'muteButton', 'adCounter', 'progressBar', 'progressBarOverlay', 'videoStartCountdown', 'hoverOverlay', 'pauseButton', 'clickThroughLink', 'controlContainer', 'fullScreenButton'
             ];
@@ -58,13 +76,15 @@ var onPlayerEvent = function(event, eventData) {
             this._controls.clickThroughLink.setTitle(videoAdTitile, clickThroughLink);
             this.setControls(linearAdStartedControls);
             this._controls.adCounter.update();
-            this._controls.videoStartCountdown.setCurrentAdDuration(getCreativeDuration(eventData.ad.getCoreAd()));
+            this._controls.videoStartCountdown.setCurrentAdDuration(currentAdDuration);
+            this._controls.progressBar.setCurrentAdDuration(currentAdDuration);
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_FINISHED:
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED:
-            this.setControls([ 'loadingSpinner', 'videoStartCountdown']);
+            this.setControls([ 'loadingSpinner', 'videoStartCountdown', 'progressBar']);
             this._controls.skipCountdown.setAd(null);
             this._controls.videoStartCountdown.reduceAggregatedTime();
+            this._controls.progressBar.addAggregatedTime();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_PROGRESS:
             this._controls.progressBar.setProgress(eventData.duration, eventData.position);

@@ -20,9 +20,9 @@ VideoStartCountdown.prototype = {
         this._vsOverlay.className = "pulse-video-start-countdown";
     },
     updateTime: function (spentTime) {
-        var countdown = 'short time';
+        var countdown = 'shortly';
         if(inAggregatedMode(this._mode)) {
-            countdown = Math.round(this._aggregatedTime - spentTime) + 's';
+            countdown = 'in ' + Math.round(this._aggregatedTime - spentTime) + 's';
         }
     	this._vsOverlay.innerHTML = this._message
     		.replace('[countdown]', countdown);

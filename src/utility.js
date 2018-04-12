@@ -73,3 +73,7 @@ function isMobileOrTablet () {
 function inAggregatedMode (mode) {
 	return mode === ENUM.AD_BREAK_MODE.AGGREGATED_MODE;
 }
+
+function isModeSet(mode) {
+	return mode === ENUM.AD_BREAK_MODE.AGGREGATED_MODE || mode === ENUM.AD_BREAK_MODE.INDIVIDUAL_NODE
+}

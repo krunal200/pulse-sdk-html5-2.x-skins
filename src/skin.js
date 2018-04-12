@@ -30,6 +30,7 @@ var onPlayerEvent = function(event, eventData) {
             break;
         case OO.Pulse.AdPlayer.Events.AD_BREAK_FINISHED:
             this.setControls();
+            this._controls.videoStartCountdown.clearText();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             if(currentAdBreak) {
@@ -74,10 +75,10 @@ var onPlayerEvent = function(event, eventData) {
             }
 
             this._controls.clickThroughLink.setTitle(videoAdTitile, clickThroughLink);
-            this.setControls(linearAdStartedControls);
             this._controls.adCounter.update();
             this._controls.videoStartCountdown.setCurrentAdDuration(currentAdDuration);
             this._controls.progressBar.setCurrentAdDuration(currentAdDuration);
+            this.setControls(linearAdStartedControls);
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_FINISHED:
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED:

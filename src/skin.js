@@ -27,6 +27,8 @@ var onPlayerEvent = function(event, eventData) {
             this._controls.videoStartCountdown.setAdType(eventData.adBreak.getBreakPosition());
             this._controls.videoStartCountdown.setMode(AD_BREAK_MODE);
             this._controls.progressBar.setMode(AD_BREAK_MODE);
+            this._adPlayer.setVolume(getPlayerVolume());
+            this._controls.muteButton.setMuteState(getPlayerMuteState());
             break;
         case OO.Pulse.AdPlayer.Events.AD_BREAK_FINISHED:
             this.setControls();

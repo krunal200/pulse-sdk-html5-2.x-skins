@@ -77,3 +77,44 @@ function inAggregatedMode (mode) {
 function isModeSet(mode) {
 	return mode === ENUM.AD_BREAK_MODE.AGGREGATED_MODE || mode === ENUM.AD_BREAK_MODE.INDIVIDUAL_NODE
 }
+
+function getPlayerVolume () {
+	var volume = 0.5;
+	try {
+		volume = playerVolumeController()
+		if(typeof volume !== 'number' || volume < 0 || volume > 1) {
+			volume = 0.5;
+		}
+	} catch (e) {
+		volume = 0.5;
+	}
+	return volume;
+}
+
+function setPlayerVolume (volume) {
+	try {
+		if(typeof volume === 'number' && volume >= 0 && volume <= 1) {
+			playerVolumeController(volume);
+		}
+	} catch (e) {}
+}
+
+function mutePlayer () {
+	try {
+		playerMuteController(true)
+	} catch (e) {}
+}
+
+function unmutePlayer () {
+	try {
+		playerMuteController(false)
+	} catch (e) {}
+}
+
+function getPlayerMuteState () {
+	try {
+		return playerMuteController()
+	} catch (e) {}
+
+	return false;
+}

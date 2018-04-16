@@ -20,12 +20,18 @@ VideoStartCountdown.prototype = {
         this._vsOverlay.className = "pulse-video-start-countdown";
     },
     updateTime: function (spentTime) {
-        var countdown = 'short time';
+        if(spentTime === 0 && !isModeSet(this._mode)) {
+            return;
+        }
+        var countdown = 'shortly';
         if(inAggregatedMode(this._mode)) {
-            countdown = Math.round(this._aggregatedTime - spentTime) + 's';
+            countdown = 'in ' + Math.round(this._aggregatedTime - spentTime) + 's';
         }
     	this._vsOverlay.innerHTML = this._message
     		.replace('[countdown]', countdown);
+    },
+    clearText: function() {
+        this._vsOverlay.innerHTML = '';
     },
     setAggregatedTime: function (totalAdBreakTime) {
     	this._aggregatedTime = totalAdBreakTime;

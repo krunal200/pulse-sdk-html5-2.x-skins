@@ -42,7 +42,13 @@ if(OO && OO.Pulse) {
 		},
 		setRequestFullScreenImpl: function(implFn) {
 			requestFullScreenImpl = implFn;
-		} 
+		},
+		setVolumeController: function(implFn) {
+			playerVolumeController = implFn;
+		},
+		setPlayerMuteController: function(implFn) {
+			playerMuteController = implFn;
+		}
 	};
 } else {
     throw new Error("The Pulse SDK is not ready. Make sure to include the skin script _after_ the SDK script.");

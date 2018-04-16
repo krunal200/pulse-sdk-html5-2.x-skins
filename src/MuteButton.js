@@ -47,6 +47,7 @@ MuteButton.prototype = {
             this._button.className = this._mutedClassNames;
             this._adPlayer.setVolume(0);
         }
+        mutePlayer();
         this._muted = true;
     },
 
@@ -57,8 +58,9 @@ MuteButton.prototype = {
             this._button.className = this._adPlayer.getVolume() ? this._unmutedClassNames : this._mutedClassNames;
         } else {
             this._button.className = this._unmutedClassNames;
-            this._adPlayer.setVolume(1);
+            this._adPlayer.setVolume(getPlayerVolume());
         }
+        unmutePlayer();
         this._muted = false;
     },
 
@@ -75,5 +77,14 @@ MuteButton.prototype = {
 
     onVolumeChanged: function(volume){
         this._button.className = volume ? this._unmutedClassNames : this._mutedClassNames;
+    },
+
+    setMuteState: function (state) {
+        this._muted  = state;
+        if(this._muted) {
+            this.mute();
+        } else {
+            this.unmute();
+        }
     }
 };

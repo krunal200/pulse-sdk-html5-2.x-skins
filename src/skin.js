@@ -27,9 +27,12 @@ var onPlayerEvent = function(event, eventData) {
             this._controls.videoStartCountdown.setAdType(eventData.adBreak.getBreakPosition());
             this._controls.videoStartCountdown.setMode(AD_BREAK_MODE);
             this._controls.progressBar.setMode(AD_BREAK_MODE);
+            this._adPlayer.setVolume(getPlayerVolume());
+            this._controls.muteButton.setMuteState(getPlayerMuteState());
             break;
         case OO.Pulse.AdPlayer.Events.AD_BREAK_FINISHED:
             this.setControls();
+            this._controls.videoStartCountdown.clearText();
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_STARTED:
             if(currentAdBreak) {
@@ -74,10 +77,10 @@ var onPlayerEvent = function(event, eventData) {
             }
 
             this._controls.clickThroughLink.setTitle(videoAdTitile, clickThroughLink);
-            this.setControls(linearAdStartedControls);
             this._controls.adCounter.update();
             this._controls.videoStartCountdown.setCurrentAdDuration(currentAdDuration);
             this._controls.progressBar.setCurrentAdDuration(currentAdDuration);
+            this.setControls(linearAdStartedControls);
             break;
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_FINISHED:
         case OO.Pulse.AdPlayer.Events.LINEAR_AD_SKIPPED:

@@ -390,10 +390,9 @@ pulse-video-start-countdown START
     font-family: Roboto, 'sans-serif';
 }
 
-.pulse-video-start-countdown.pulse-visible:empty {
+.pulse-video-start-countdown:empty, .pulse-video-start-countdown.pulse-visible:empty {
   display: none !important;
 }
-
 
 @media (max-width: 480px) {
   .pulse-video-start-countdown {
